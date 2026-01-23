@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".auth.LoginActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:backgroundTint="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="20dp"
+            android:gravity="center"
+            android:layout_marginVertical="15dp">
+
+            <ImageButton
+                android:id="@+id/navback"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/navbackbg"
+                android:src="@drawable/arrowback" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/login"
+                android:textColor="@color/primary"
+                android:textFontWeight="500"
+                android:textSize="25sp" />
+        </LinearLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        app:dividerColor="@color/lightGray"
+        android:layout_height="2dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/loginWelcomeTxt"
+            android:textColor="@color/black"
+            android:textFontWeight="500"
+            android:textSize="28dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/email"
+                android:textColor="@color/primary"
+                android:textSize="@dimen/txtLabel" />
+
+            <EditText
+                android:id="@+id/emailField"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="2dp"
+                android:background="@drawable/txtfieldbg"
+                android:hint="@string/emailHint"
+                android:inputType="textEmailAddress"
+                android:paddingHorizontal="20dp"
+                android:textColor="@color/black" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="2dp"
+                    android:text="@string/password"
+                    android:textColor="@color/primary"
+                    android:textSize="@dimen/txtLabel" />
+
+                <EditText
+                    android:id="@+id/passwordField"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/txtfieldbg"
+                    android:hint="@string/passwordHint"
+                    android:inputType="textPassword"
+                    android:paddingHorizontal="20dp"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/loginBtn"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/btnHeight"
+                android:layout_marginTop="40dp"
+                android:backgroundTint="@color/blackVariant"
+                android:text="@string/login"
+                android:textSize="@dimen/btnText"
+                app:cornerRadius="@dimen/btnRadius" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/dontHaveAccount"
+                    android:textSize="@dimen/txtBtn" />
+
+                <Button
+                    android:id="@+id/signupNow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:background="@color/transparent"
+                    android:padding="0dp"
+                    android:paddingVertical="0dp"
+                    android:text="@string/registerNow"
+                    android:textColor="@color/primary"
+                    android:textFontWeight="500"
+                    android:textSize="@dimen/txtBtn" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,39 @@
+<resources>
+    <!--    getStarted-->
+    <string name="app_name">ShopIt</string>
+    <string name="getStartedTagline">Everything you need, delivered smarter Shop from trusted stores around you</string>
+    <!--    login-->
+    <string name="login">Login</string>
+    <string name="loginWelcomeTxt">Welcome Back! Glad to See You Again!</string>
+    <string name="forgotPassword">Forgot password?</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="emailHint">Enter your email</string>
+    <string name="passwordHint">Enter your password</string>
+    <string name="registerNow">Register Now</string>
+    <string name="dontHaveAccount">"Don't have an account?"</string>
+
+    <!--    signup-->
+    <string name="signup">Signup</string>
+    <string name="signupWelcomeTxt">Hello! Register to Get Started</string>
+    <string name="name">Name</string>
+    <string name="confPassword">Confirm Password</string>
+    <string name="nameHint">Enter your Name</string>
+    <string name="confPasswordHint">Enter Confirm password</string>
+    <string name="alreadyHaveAccount">Already have an account?</string>
+    <string name="loginNow">Login Now</string>
+
+    <!--    bottom navbar-->
+    <string name="home">Home</string>
+    <string name="shop">Shop</string>
+    <string name="wishlist">Wishlist</string>
+    <string name="profile">Profile</string>
+
+<!--    homescreen-->
+    <string name="discover_homeappbar">Discover</string>
+    <string name="search">Search products</string>
+
+<!--    account profile-->
+    <string name="account">Account</string>
+    <string name="logout">Logout</string>
+</resources>

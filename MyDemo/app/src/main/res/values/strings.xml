@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Invoxa Demo</string>
+    <string name="splash_name">Invoxa</string>
+    <string name="getstarted_title">Welcome to Invoxa</string>
+    <string name="getstarted_description">Invoxa is a smart invoicing solution designed to simplify your billing workflow.</string>
+    <string name="getstart_btn">Get Started</string>
+    <string name="open_google">Continue with Google</string>
+    <string name="login_title">Login</string>
+    <string name="email">Email</string>
+    <string name="email_hint">Enter your email</string>
+    <string name="password">Password</string>
+    <string name="password_hint">Enter your password</string>
+    <string name="login_btn">Login</string>
+    <string name="signup_title"> Signup Account</string>
+    <string name="signup_email">Email</string>
+    <string name="signup_password">Password</string>
+    <string name="signup_username">Username</string>
+    <string name="signup_username_hint">Enter your username</string>
+    <string name="signup_password_hint">Enter your password</string>
+    <string name="signup_email_hint">Enter your email</string>
+    <string name="signup_btn">Signup</string>
+</resources>

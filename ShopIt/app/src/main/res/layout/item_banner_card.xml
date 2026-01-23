@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/cardWidth"
+    android:layout_height="@dimen/cardHeight"
+    android:layout_marginRight="15dp"
+    app:strokeWidth="0dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/bannerImage"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:foreground="@drawable/card_gradient"
+            android:scaleType="centerCrop"
+            android:src="@drawable/card1bg" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="10dp"
+            android:gravity="bottom"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/bannerTag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/txtfieldbg"
+                android:backgroundTint="@color/secondary"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:paddingHorizontal="13dp"
+                android:paddingVertical="5dp"
+                android:text="Limited Offer"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/bannerTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:ellipsize="end"
+                android:lineSpacingExtra="-10dp"
+                android:maxLines="3"
+                android:text="Master the UI: 50% Off Design Systems"
+                android:textColor="@color/white"
+                android:textFontWeight="500"
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/bannerSubtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:ellipsize="marquee"
+                android:maxLines="1"
+                android:text="Curated components for elite creators. Curated components for elite creators. Curated components for elite creators."
+                android:textColor="@color/gray"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </RelativeLayout>
+</com.google.android.material.card.MaterialCardView>

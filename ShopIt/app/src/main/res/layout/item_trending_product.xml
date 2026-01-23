@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="250dp"
+    android:layout_height="300dp"
+    android:layout_marginRight="15dp"
+    android:backgroundTint="@color/transparent"
+    app:strokeWidth="0dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/trendProductsBgCard"
+            android:layout_width="225dp"
+            android:layout_height="275dp"
+            android:layout_alignParentEnd="true"
+            android:backgroundTint="@color/primaryLight"
+            app:cardCornerRadius="20dp"
+            app:strokeWidth="0dp" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="225dp"
+            android:layout_height="275dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="25dp"
+            android:backgroundTint="@color/white"
+            android:elevation="@dimen/cardHeight"
+            app:cardCornerRadius="20dp"
+            app:strokeColor="@color/lightGray"
+            app:strokeWidth="1dp">
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <LinearLayout
+            android:layout_width="225dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp">
+
+            <TextView
+                android:id="@+id/trendProdName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="marquee"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="Velocity Pro Shoes"
+                android:textColor="@color/black"
+                android:textFontWeight="600"
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/trendProdSubtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="Performance Lifestyle Shoe"
+                android:textColor="@color/blackVariant"
+                android:textSize="16sp" />
+
+
+            <RelativeLayout
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/tredProdPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="$189"
+                    android:textColor="@color/primary"
+                    android:textFontWeight="500"
+                    android:textSize="20sp" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:elevation="0dp"
+                    android:src="@drawable/addcart"
+                    app:backgroundTint="@color/primary"
+                    app:fabCustomSize="40dp"
+                    app:maxImageSize="20dp"
+                    app:rippleColor="@color/primaryVariant"
+                    app:tint="@color/white" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/trendProdImage"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/trend1" />
+    </RelativeLayout>
+</com.google.android.material.card.MaterialCardView>

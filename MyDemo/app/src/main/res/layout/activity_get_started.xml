@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    tools:context=".initial.GetStartedActivity">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/getstartedlogo"
+            android:layout_marginBottom="10dp"
+
+            />
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:textColor="@color/white"
+            android:textAlignment="center"
+            android:textSize="16dp"
+            android:text="@string/getstarted_description"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/getstart_btn"
+            android:layout_marginTop="100dp"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:textColor="@color/white"
+            android:text="@string/getstart_btn"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/google_btn"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            app:cornerRadius="15dp"
+            app:strokeWidth="2dp"
+            app:icon="@drawable/applogo"
+            app:iconGravity="textStart"
+            app:iconSize="35dp"
+            app:iconTintMode="src_in"
+            app:iconTint="@color/primaryColor"
+            app:backgroundTint="@color/black"
+            app:strokeColor="@color/primaryColor"
+            android:textColor="@color/primaryColor"
+            android:text="@string/open_google"/>
+
+</LinearLayout>
