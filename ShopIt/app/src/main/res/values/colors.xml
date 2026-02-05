@@ -5,15 +5,17 @@
     <color name="primaryLight">#FFe8f7fc</color>
     <color name="secondary">#FFFF6B35</color>
     <color name="secondaryLight">#FFf5debf</color>
+    <color name="secondaryLightVariant">#FFFAF6</color>
     <color name="black">#FF000000</color>
     <color name="blackVariant">#EF1F2937</color>
     <color name="gray">#FFCACACE</color>
     <color name="lightGray">#FFE5E4E2</color>
     <color name="white">#FFFFFFFF</color>
     <color name="whiteLight">#FFf0f0f0</color>
-
     <color name="green">#FF22C55F</color>
+    <color name="greenVariant">#CCFDDD</color>
     <color name="red">#FFC72B2B</color>
+    <color name="redVariant">#98FF9B9B</color>
     <color name="transparent">@android:color/transparent</color>
 
 </resources>

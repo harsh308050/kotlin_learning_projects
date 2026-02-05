@@ -1,35 +1,38 @@
 package com.harsh.shopit.initial
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.widget.Button
-import android.widget.ImageView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.harsh.shopit.R
-import com.harsh.shopit.auth.LoginActivity
-import com.harsh.shopit.auth.SignupActivity
+import com.harsh.shopit.auth.login.ui.LoginActivity
+import com.harsh.shopit.seller.auth.ui.SellerAuthActivity
 
 class GetStartedActivity : AppCompatActivity() {
-    fun btnClickHandler(){
-        val loginBtn = findViewById<Button>(R.id.login)
-        val signupbtn = findViewById<Button>(R.id.signup)
+    private val requestPermission =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) {}
 
-        loginBtn.setOnClickListener {
+    fun btnClickHandler(){
+        val customerBtn = findViewById<Button>(R.id.customer)
+        val sellerBtn = findViewById<Button>(R.id.seller)
+
+        customerBtn.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
-        signupbtn.setOnClickListener {
-            val intent = Intent(this, SignupActivity::class.java)
+        sellerBtn.setOnClickListener {
+            val intent = Intent(this, SellerAuthActivity::class.java)
             startActivity(intent)
         }
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
-        setContentView(R.layout.activity_get_started)
-
+        setContentView(R.layout.customer_activity_get_started)
+       if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
+           requestPermission.launch(android.Manifest.permission.POST_NOTIFICATIONS)
+       }
         btnClickHandler()
-
     }
 }

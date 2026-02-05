@@ -7,4 +7,7 @@
     <dimen name="txtBtn">15sp</dimen>
     <dimen name="cardHeight">180dp</dimen>
     <dimen name="cardWidth">300dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="fragment_horizontal_margin">16dp</dimen>
+    <dimen name="fragment_vertical_margin">16dp</dimen>
 </resources>

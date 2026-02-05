@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "16317729362",
+    "project_id": "worksphere-android",
+    "storage_bucket": "worksphere-android.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:16317729362:android:4a6b6ee8283e1314202d8b",
+        "android_client_info": {
+          "package_name": "com.harsh.worksphere"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "16317729362-h2krmsta5magmoumj3l38311oub97mb9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6vED75H94c3NIMrcwjLqI_KAYuu6OJFc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "16317729362-h2krmsta5magmoumj3l38311oub97mb9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

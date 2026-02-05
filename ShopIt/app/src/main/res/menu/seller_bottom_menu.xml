@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/sellerDashboard"
+        android:icon="@drawable/home"
+        android:iconTint="@color/secondary"
+        android:title="@string/dashboard" />
+
+    <item
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:title="" />
+    <item
+        android:id="@+id/sellerProducts"
+        android:icon="@drawable/shop"
+        android:iconTint="@color/secondary"
+        android:title="@string/products" />
+</menu>

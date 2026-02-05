@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/secondaryLightVariant"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".seller.products.addProd.ui.SellerAddProductActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/secondaryLightVariant">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="15dp"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/navback"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/navbackbg"
+                android:src="@drawable/arrowback" />
+
+            <TextView
+                android:id="@+id/appbarAddProdTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/add_product"
+                android:textColor="@color/secondary"
+                android:textFontWeight="500"
+                android:textSize="25sp" />
+        </LinearLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        app:dividerColor="@color/lightGray" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        android:paddingHorizontal="20dp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/addProdImage"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="@drawable/dashed_border">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/camera"
+                        app:tint="@color/secondary" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Tap to upload product Image"
+                        android:textAlignment="center" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="SVG, PNG or JPG"
+                        android:textAlignment="center"
+                        android:textColor="@color/gray" />
+                </LinearLayout>
+            </FrameLayout>
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="20dp">
+                <ImageView
+                    android:id="@+id/addedProdImage"
+                    android:layout_width="match_parent"
+                    android:src="@drawable/prod1"
+                    android:layout_height="200dp"
+                    android:scaleType="centerCrop"
+                    android:visibility="gone"/>
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Product Name"
+                        android:textColor="@color/secondary"
+                        android:textSize="@dimen/txtLabel" />
+
+                    <EditText
+                        android:id="@+id/prodNameField"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginBottom="2dp"
+                        android:background="@drawable/sellertxtfieldbg"
+                        android:backgroundTint="@null"
+                        
+                        android:hint="e.g. Leather Jacket"
+                        android:paddingHorizontal="20dp"
+                        android:textColor="@color/black" />
+                </LinearLayout>
+
+                <GridLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:columnCount="2">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:layout_marginEnd="5dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="Price"
+                            android:textColor="@color/secondary"
+                            android:textSize="@dimen/txtLabel" />
+
+                        <EditText
+                            android:id="@+id/prodPriceField"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginBottom="2dp"
+                            android:background="@drawable/sellertxtfieldbg"
+                            android:backgroundTint="@null"
+                            android:inputType="numberDecimal"
+                            android:drawableStart="@drawable/dollar"
+                            android:drawablePadding="20dp"
+                            android:drawableTint="@color/gray"
+                            android:hint="0.00"
+                            android:paddingHorizontal="20dp"
+                            android:textColor="@color/black" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:layout_marginStart="5dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="Quantity"
+                            android:textColor="@color/secondary"
+                            android:textSize="@dimen/txtLabel" />
+
+                        <EditText
+                            android:id="@+id/prodQuantityField"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginBottom="2dp"
+                            android:background="@drawable/sellertxtfieldbg"
+                            android:backgroundTint="@null"
+                            android:hint="0"
+android:inputType="number"
+                            android:paddingHorizontal="20dp"
+                            android:textColor="@color/black" />
+                    </LinearLayout>
+                </GridLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Category"
+                        android:textColor="@color/secondary"
+                        android:textSize="@dimen/txtLabel" />
+
+                    <EditText
+                        android:id="@+id/prodCategoryField"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginBottom="2dp"
+                        android:background="@drawable/sellertxtfieldbg"
+                        android:backgroundTint="@null"
+                        android:hint="Enter Product Category"
+
+                        android:paddingHorizontal="20dp"
+                        android:textColor="@color/black" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="2dp"
+                        android:text="Description"
+                        android:textColor="@color/secondary"
+                        android:textSize="@dimen/txtLabel" />
+
+                    <EditText
+                        android:id="@+id/prodDescField"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:background="@drawable/sellertxtfieldbg"
+                        android:backgroundTint="@null"
+                        
+                        android:hint="Enter Product Description"
+                        android:paddingHorizontal="20dp"
+                        android:textColor="@color/black" />
+                </LinearLayout>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="15dp"
+                    android:backgroundTint="@color/white"
+                    app:cardCornerRadius="20dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:paddingHorizontal="20dp"
+                        android:paddingVertical="10dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Availability Status"
+                                android:textFontWeight="500"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Product is in Stock or not"
+                                android:textColor="@color/secondaryLight"
+                                android:textFontWeight="500"
+                                android:textSize="16sp" />
+                        </LinearLayout>
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/prodStockSwitch"
+                            app:trackTint="@color/secondaryLight"
+                            app:thumbTint="@color/secondary"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="end" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="40dp">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/addProdBtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/btnHeight"
+                        android:backgroundTint="@color/secondary"
+                        android:text="@string/add_product"
+                        android:textSize="@dimen/btnText"
+                        app:cornerRadius="@dimen/btnRadius" />
+
+                    <ProgressBar
+                        android:id="@+id/addProdLoader"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_centerInParent="true"
+                        android:indeterminateTint="@android:color/white"
+                        android:visibility="gone" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

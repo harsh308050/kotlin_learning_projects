@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    tools:context=".view.MainActivity">
+
+    <TextView
+        android:textStyle="bold"
+        android:textSize="33dp"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Calculation" />
+    <EditText
+        android:id="@+id/num1"
+        android:inputType="number"
+        android:hint="Enter number 1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/num2"
+        android:inputType="number"
+        android:hint="Enter number 2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/sum"
+        android:textStyle="bold"
+        android:textSize="33dp"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Result: 0" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/resBtn"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:text="Calculate"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

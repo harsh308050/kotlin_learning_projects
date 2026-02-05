@@ -1,4 +1,10 @@
 <resources>
+    <!--    api-->
+    <string name="mainUrl">https://dummyjson.com/</string>
+    <string name="productsEndpoint">products</string>
+    <string name="loginEndpoint">auth/login</string>
+
+
     <!--    getStarted-->
     <string name="app_name">ShopIt</string>
     <string name="getStartedTagline">Everything you need, delivered smarter Shop from trusted stores around you</string>
@@ -29,11 +35,29 @@
     <string name="wishlist">Wishlist</string>
     <string name="profile">Profile</string>
 
-<!--    homescreen-->
+    <!--    homescreen-->
     <string name="discover_homeappbar">Discover</string>
     <string name="search">Search products</string>
 
-<!--    account profile-->
+    <!--    account profile-->
     <string name="account">Account</string>
     <string name="logout">Logout</string>
+
+    <!--    shopscreen-->
+    <string name="shop_appbar">Shop Now</string>
+    <string name="browse_appbar">Browse Products of Your Choice</string>
+
+    <!--    wishlistscreen-->
+    <string name="wishlist_appbar">Your Favorites</string>
+    <string name="wishlist_subtitle_appbar">Your Choices are Great</string>
+    <string name="empty_products">No Products Found</string>
+    <string name="welcome">"Welcome Back,"</string>
+    <string name="customer">Customer</string>
+
+<!--    seller-->
+    <string name="seller">Seller</string>
+    <string name="seller_dashboard">Seller Dashboard</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="products">Products</string>
+    <string name="add_product">Add Product</string>
 </resources>

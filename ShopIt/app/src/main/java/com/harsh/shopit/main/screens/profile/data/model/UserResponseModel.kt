@@ -1,0 +1,32 @@
+package com.harsh.shopit.main.screens.profile.data.model
+
+data class UserResponseModel(
+    val address: Address,
+    val age: Int,
+    val bank: Bank,
+    var birthDate: String,
+    val bloodGroup: String,
+    val company: Company,
+    val crypto: Crypto,
+    val ein: String,
+    var email: String,
+    val eyeColor: String,
+    var firstName: String,
+    val gender: String,
+    val hair: Hair,
+    val height: Double,
+    val id: Int,
+    var image: String,
+    val ip: String,
+    var lastName: String,
+    val macAddress: String,
+    val maidenName: String,
+    val password: String,
+    var phone: String,
+    val role: String,
+    val ssn: String,
+    val university: String,
+    val userAgent: String,
+    val username: String,
+    val weight: Double
+)

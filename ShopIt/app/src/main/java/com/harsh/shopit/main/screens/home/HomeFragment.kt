@@ -2,15 +2,20 @@ package com.harsh.shopit.main.screens.home
 
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.harsh.shopit.R
+import com.harsh.shopit.main.screens.home.banner.BannerItemAdapter
+import com.harsh.shopit.main.screens.home.banner.BannerItemDataModel
+import com.harsh.shopit.main.screens.home.saleprod.SaleProductsAdapter
+import com.harsh.shopit.main.screens.home.saleprod.SaleProductsDataModel
+import com.harsh.shopit.main.screens.home.trendProd.TrendProductsAdapter
+import com.harsh.shopit.main.screens.home.trendProd.TrendProductsDataModel
 
-class HomeFragment : Fragment(R.layout.fragment_home) {
+class HomeFragment : Fragment(R.layout.customer_fragment_home) {
 
 
     private lateinit var bannerList: ArrayList<BannerItemDataModel>

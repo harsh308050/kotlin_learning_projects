@@ -7,17 +7,17 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.harsh.shopit.R
-import com.harsh.shopit.main.screens.CartActivity
+import com.harsh.shopit.main.screens.cart.ui.CartActivity
 import com.harsh.shopit.main.screens.home.HomeFragment
-import com.harsh.shopit.main.screens.ProfileFragment
-import com.harsh.shopit.main.screens.ShopFragment
-import com.harsh.shopit.main.screens.WishlistFragment
+import com.harsh.shopit.main.screens.profile.ui.ProfileFragment
+import com.harsh.shopit.main.screens.shop.ui.ShopFragment
+import com.harsh.shopit.main.screens.wishlist.ui.WishlistFragment
 
 class MainHomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main_home)
-       bottomNavHandler(savedInstanceState)
+        setContentView(R.layout.customer_activity_main_home)
+        bottomNavHandler(savedInstanceState)
         floatingButtonHandler()
     }
 

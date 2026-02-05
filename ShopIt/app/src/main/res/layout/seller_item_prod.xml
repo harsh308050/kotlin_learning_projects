@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:backgroundTint="@color/white"
+    app:cardCornerRadius="25dp"
+    app:strokeWidth="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingHorizontal="15dp"
+        android:paddingVertical="15dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="20dp">
+
+                    <ImageView
+                        android:id="@+id/sellerProdImage"
+                        android:layout_width="120dp"
+                        android:layout_height="130dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/prod1" />
+
+                </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:layout_marginStart="15dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/sellerProdName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="Leather Jacket"
+                    android:textColor="@color/black"
+                    android:textFontWeight="600"
+                    android:textSize="20dp" />
+
+                <TextView
+
+                    android:id="@+id/sellerProdCategory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Menwear"
+                    android:textColor="@color/gray"
+                    android:textFontWeight="400"
+                    android:textSize="16dp" />
+
+                <TextView
+
+                    android:id="@+id/sellerProdDesc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:lineSpacingExtra="-5dp"
+                    android:maxLines="4"
+                    android:text="Leather Jacket Leather Jacket Leather Jacket Leather Jacket Leather Jacket Leather Jacket Leather Jacket Leather Jacket Leather Jacket "
+                    android:textColor="@color/black"
+                    android:textFontWeight="600"
+                    android:textSize="14dp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+
+                android:id="@+id/sellerProdPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/secondary"
+                android:textSize="22sp"
+                android:textFontWeight="500"
+                android:text="$120.00" />
+            <LinearLayout
+                android:layout_weight="1"
+                android:gravity="end"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageButton
+                    android:id="@+id/sellerProdEdit"
+                    android:layout_marginStart="15dp"
+                    android:layout_gravity="center"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:padding="5dp"
+                    android:scaleType="fitXY"
+                    android:background="@drawable/floatingbtnbg"
+                    android:backgroundTint="@color/secondaryLight"
+                    android:src="@drawable/edit"
+                    app:tint="@color/secondary" />
+
+                <ImageButton
+                    android:id="@+id/sellerProdDelete"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="15dp"
+                    android:background="@drawable/floatingbtnbg"
+                    android:backgroundTint="@color/redVariant"
+                    android:padding="5dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/delete"
+                    app:tint="@color/red" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

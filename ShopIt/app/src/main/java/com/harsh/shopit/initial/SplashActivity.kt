@@ -8,6 +8,9 @@ import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.harsh.shopit.R
+import com.harsh.shopit.main.MainHomeActivity
+import com.harsh.shopit.main.utils.Prefs
+import com.harsh.shopit.main.utils.SharedPrefKeys
 
 class SplashActivity : AppCompatActivity() {
 
@@ -30,8 +33,14 @@ class SplashActivity : AppCompatActivity() {
             .start()
 
         Handler(Looper.getMainLooper()).postDelayed({
-            startActivity(Intent(this, GetStartedActivity::class.java))
-            finish()
+            val authToken = Prefs.getString(this, SharedPrefKeys.authtoken)
+            if (authToken != null) {
+                startActivity(Intent(this, MainHomeActivity::class.java))
+                finish()
+            } else {
+                startActivity(Intent(this, GetStartedActivity::class.java))
+                finish()
+            }
         }, 2500)
     }
 }

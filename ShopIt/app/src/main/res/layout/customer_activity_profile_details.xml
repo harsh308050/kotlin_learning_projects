@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    tools:context=".main.screens.profile.profileDetails.ProfileDetails">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:paddingHorizontal="14dp"
+        android:paddingTop="12dp"
+        android:layout_height="match_parent">
+        <com.google.android.material.appbar.AppBarLayout
+            android:backgroundTint="@color/white"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="15dp"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/navback"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/navbackbg"
+                    android:src="@drawable/arrowback" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/profile"
+                    android:textColor="@color/primary"
+                    android:textFontWeight="500"
+                    android:textSize="25sp" />
+            </LinearLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            app:dividerColor="@color/lightGray" />
+        <ScrollView
+            android:scrollbars="none"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_marginTop="20dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp">
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/profileImage"
+                        android:layout_centerInParent="true"
+                        android:layout_width="180dp"
+                        android:layout_height="180dp"
+                        android:scaleType="centerCrop"
+                        android:background="@color/transparent"
+                        app:shapeAppearanceOverlay="@style/CircleImageView"
+                        android:src="@drawable/profile_person" />
+                    <ImageButton
+                        android:id="@+id/editProfileBtn"
+                        android:background="@drawable/icon_bg"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignEnd="@id/profileImage"
+                        android:backgroundTint="@color/secondary"
+                        app:tint="@color/white"
+                        android:layout_width="40dp"
+                        android:layout_margin="10dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/edit" />
+                </RelativeLayout>
+                <TextView
+                    android:textAlignment="center"
+                    android:id="@+id/userNameProfile"
+                    android:text="Harsh Parmar"
+                    android:textFontWeight="600"
+                    android:textSize="30sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <GridLayout
+                    android:columnCount="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_marginEnd="10dp"
+                        android:layout_width="0dp"
+                        android:layout_columnWeight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="First Name"
+                            android:textColor="@color/primary"
+                            android:textSize="@dimen/txtLabel" />
+
+                        <EditText
+                            android:id="@+id/firstNameField"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginBottom="2dp"
+                            android:background="@drawable/txtfieldbg"
+                            android:hint="Type Here..."
+                            android:inputType="textEmailAddress"
+                            android:paddingHorizontal="20dp"
+                            android:textColor="@color/black" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:layout_marginTop="20dp"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="Last Name"
+                            android:textColor="@color/primary"
+                            android:textSize="@dimen/txtLabel" />
+
+                        <EditText
+                            android:id="@+id/lastNameField"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginBottom="2dp"
+                            android:background="@drawable/txtfieldbg"
+                            android:hint="Type Here..."
+                            android:inputType="textEmailAddress"
+                            android:paddingHorizontal="20dp"
+                            android:textColor="@color/black" />
+                    </LinearLayout>
+                </GridLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp" android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/email"
+                        android:textColor="@color/primary"
+                        android:textSize="@dimen/txtLabel" />
+
+                    <EditText
+                        android:id="@+id/emailFieldProfile"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginBottom="2dp"
+                        android:background="@drawable/txtfieldbg"
+                        android:hint="Type Here..."
+                        android:inputType="textEmailAddress"
+                        android:paddingHorizontal="20dp"
+                        android:textColor="@color/black" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp" android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Phone No."
+                        android:textColor="@color/primary"
+                        android:textSize="@dimen/txtLabel" />
+
+                    <EditText
+                        android:id="@+id/phoneFieldProfile"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginBottom="2dp"
+                        android:background="@drawable/txtfieldbg"
+                        android:hint="Type Here..."
+                        android:inputType="textEmailAddress"
+                        android:paddingHorizontal="20dp"
+                        android:textColor="@color/black" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp" android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Date of Birth"
+                        android:textColor="@color/primary"
+                        android:textSize="@dimen/txtLabel" />
+
+                    <EditText
+                        android:id="@+id/dateofbirthProfile"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginBottom="2dp"
+                        android:focusable="false"
+                        android:clickable="true"
+                        android:background="@drawable/txtfieldbg"
+                        android:hint="Select Date"
+                        android:inputType="textEmailAddress"
+                        android:paddingHorizontal="20dp"
+                        android:textColor="@color/black" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/saveChange"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/btnHeight"
+            android:layout_marginVertical="15dp"
+            android:text="Save Changes"
+            android:textFontWeight="500"
+            android:textSize="@dimen/btnText"
+            app:cornerRadius="@dimen/btnRadius" />
+    </LinearLayout>
+</LinearLayout>

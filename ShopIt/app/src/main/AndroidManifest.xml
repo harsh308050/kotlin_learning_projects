@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -13,7 +16,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ShopIt">
         <activity
-            android:name=".main.screens.CartActivity"
+            android:name=".seller.products.addProd.ui.SellerAddProductActivity"
+            android:exported="false" />
+        <activity
+            android:name=".seller.SellerMainHomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".seller.auth.ui.SellerAuthActivity"
+            android:exported="false" />
+        <activity
+            android:name=".main.screens.profile.profileDetails.ProfileDetails"
+            android:exported="false" />
+        <activity
+            android:name=".main.screens.cart.ui.CartActivity"
             android:exported="false" />
         <activity
             android:name=".main.MainHomeActivity"
@@ -25,7 +40,7 @@
             android:name=".initial.GetStartedActivity"
             android:exported="false" />
         <activity
-            android:name=".auth.LoginActivity"
+            android:name=".auth.login.ui.LoginActivity"
             android:exported="false" />
         <activity
             android:name=".initial.SplashActivity"

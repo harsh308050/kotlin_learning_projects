@@ -8,6 +8,7 @@ import android.widget.EditText
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import com.harsh.shopit.R
+import com.harsh.shopit.auth.login.ui.LoginActivity
 import com.harsh.shopit.main.MainHomeActivity
 
 class SignupActivity : AppCompatActivity() {
@@ -59,7 +60,7 @@ class SignupActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_signup)
+        setContentView(R.layout.customer_activity_signup)
         btnClickHandler()
         signupBtnHandler()
     }

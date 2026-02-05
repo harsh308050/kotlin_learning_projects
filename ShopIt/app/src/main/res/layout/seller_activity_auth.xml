@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:fitsSystemWindows="true"
+    android:layout_height="match_parent"
+    tools:context=".seller.auth.ui.SellerAuthActivity">
+    <com.google.android.material.tabs.TabLayout
+        android:layout_marginTop="20dp"
+        android:id="@+id/sellerAuthTabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabIndicatorColor="@color/secondary"
+        android:backgroundTint="@color/transparent"
+        app:tabIndicatorFullWidth="true"
+        app:tabSelectedTextColor="@color/secondary"
+        app:tabTextAppearance="@style/SellerAuthTabText"
+        app:tabTextColor="@color/gray"/>
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/sellerAuthViewPager"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp"/>
+
+</LinearLayout>
