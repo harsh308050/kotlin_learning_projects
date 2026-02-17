@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/headerContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/corners_background">
+
+        <!-- Title -->
+        <TextView
+            android:paddingStart="10dp"
+            android:id="@+id/tvTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/trailingContainer"
+            android:layout_marginEnd="8dp"
+            tools:text="Subject*" />
+
+        <!-- Trailing Container (Buttons + Text) -->
+        <LinearLayout
+            android:id="@+id/trailingContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <!-- Counter Text -->
+            <TextView
+                android:id="@+id/tvCounter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@android:color/darker_gray"
+                android:layout_marginEnd="8dp"
+                android:visibility="gone"
+                tools:text="0/100"
+                tools:visibility="visible" />
+
+            <!-- Info Button -->
+            <ImageButton
+                android:id="@+id/btnDelete"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/delete"
+                android:background="@color/transparent"
+                android:contentDescription="Info"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/btnInfo"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@color/transparent"
+                android:contentDescription="Info"
+                android:src="@drawable/info"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <!-- Add/Plus Button -->
+           <com.google.android.material.card.MaterialCardView
+               android:layout_width="wrap_content"
+               app:cardCornerRadius="8dp"
+               app:cardElevation="2dp"
+               android:backgroundTint="@color/white"
+               android:layout_height="wrap_content">
+               <ImageButton
+                   android:id="@+id/btnAdd"
+                   android:layout_width="30dp"
+                   android:layout_height="30dp"
+                   android:background="@color/transparent"
+                   android:src="@drawable/add"
+                   android:contentDescription="Add"
+                   android:visibility="gone"
+                   tools:visibility="visible" />
+           </com.google.android.material.card.MaterialCardView>
+
+            <!-- Expand/Collapse Button -->
+            <ImageButton
+                android:id="@+id/btnExpand"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/arrow_up"
+                android:background="@color/transparent"
+                android:contentDescription="Expand/Collapse"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>

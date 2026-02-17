@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="splash_background">#FF000e35</color>
+    <color name="primary_blue">#FF137FEC</color>
+    <color name="primary_blue_dark">#FF0E66BD</color>
+    <color name="primary_blue_light">#FF4C8DCF</color>
+    <color name="blue_light">#FFDBEAFF</color>
+    <color name="secondary_green">#FF13EC81</color>
+    <color name="red">#FFFD5151</color>
+    <color name="red_light">#FFFFB5B3</color>
+    <color name="green">#4CAF50</color>
+    <color name="light_green">#dcfce7</color>
+    <color name="yellow">#FFFFC107</color>
+    <color name="orange">#FFf56e25</color>
+    <color name="orange_light">#FFf7b28d</color>
+
+    <color name="light_grey">#FF9E9E9E</color>
+    <color name="light_grey_variant">#FFF6F7F9</color>
+    <color name="dark_grey">#FF616161</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="white_light">#DEDEDE</color>
+
+    <color name="transparent">@android:color/transparent</color>
 </resources>

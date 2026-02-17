@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:visibility="visible"
+    android:layout_width="match_parent"
+    android:id="@+id/site_card"
+    android:layout_height="wrap_content"
+    android:backgroundTint="@color/white">
+
+        <LinearLayout
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:background="@color/white"
+                app:cardCornerRadius="10dp"
+                app:strokeWidth="0dp">
+
+                <ImageView
+                    android:id="@+id/selected_site_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/siteeee" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/selected_site_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:ellipsize="end"
+                    android:gravity="start"
+                    android:maxLines="1"
+                    android:text="Name Name Name Name "
+                    android:textColor="@color/black"
+                    android:textFontWeight="500"
+                    android:textSize="22sp" />
+
+                <TextView
+                    android:id="@+id/selected_site_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:lineSpacingExtra="-8dp"
+                    android:maxLines="2"
+                    android:text="Address Address Address Address Address Address Address Address"
+                    android:textColor="@color/light_grey"
+                    android:textFontWeight="400"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/selected_site_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:lineSpacingExtra="-8dp"
+                    android:maxLines="2"
+                    android:text="Description Description Description Description Description Description Description Description Description"
+                    android:textColor="@color/light_grey"
+                    android:textFontWeight="400"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>

@@ -1,0 +1,545 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:backgroundTint="@color/white"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".manager.addusers.ui.ManagerAddUsersActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="10dp"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/navback"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@color/transparent"
+                android:src="@drawable/back_arrow" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/add_new_user"
+                android:textColor="@color/black"
+                android:textFontWeight="500"
+                android:textSize="22sp" />
+        </LinearLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:layout_alignParentBottom="true"
+        app:dividerColor="@color/light_grey" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:orientation="vertical"
+            android:paddingHorizontal="15dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="2dp"
+                    android:text="Full Name"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/full_name_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/btnHeight"
+                    android:background="@drawable/text_field"
+                    android:drawableStart="@drawable/ic_user_small"
+                    android:drawablePadding="10dp"
+                    android:drawableTint="@color/light_grey"
+                    android:hint="Enter full name"
+                    android:inputType="text"
+                    android:paddingHorizontal="20dp"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="2dp"
+                    android:text="Employee Mail ID"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/employee_mail_id_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/btnHeight"
+                    android:background="@drawable/text_field"
+                    android:drawableStart="@drawable/email"
+                    android:drawablePadding="10dp"
+                    android:drawableTint="@color/light_grey"
+                    android:hint="Enter Employee Mail ID"
+                    android:inputType="text"
+                    android:paddingHorizontal="20dp"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="2dp"
+                    android:text="Phone Number"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/phone_number_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/btnHeight"
+                    android:background="@drawable/text_field"
+                    android:drawableStart="@drawable/phone"
+                    android:drawablePadding="10dp"
+                    android:drawableTint="@color/light_grey"
+                    android:hint="Enter Mobile Number"
+                    android:inputType="number"
+                    android:maxLength="10"
+                    android:paddingHorizontal="20dp"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="Select Role"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <RadioGroup
+                    android:id="@+id/roleSelectionTab"
+                    android:layout_width="match_parent"
+                    android:layout_height="58dp"
+                    android:background="@drawable/tab_background"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <RadioButton
+                        android:id="@+id/btnSupervisor"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/tab_selector"
+                        android:button="@null"
+                        android:checked="true"
+                        android:gravity="center"
+                        android:text="Supervisor"
+                        android:textAllCaps="false"
+                        android:textColor="@color/tab_text_color_selector"
+                        android:textSize="16sp" />
+
+                    <RadioButton
+                        android:id="@+id/btnEmployee"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/tab_selector"
+
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="Employee"
+                        android:textAllCaps="false"
+                        android:textColor="@color/tab_text_color_selector"
+                        android:textSize="16sp" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <!--            supervisor fields-->
+            <LinearLayout
+                android:id="@+id/supervisorFields"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Site Section -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="Site"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <!-- Select site btn - ALWAYS VISIBLE -->
+                    <LinearLayout
+                        android:id="@+id/select_site_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@drawable/text_field"
+                        android:paddingHorizontal="20dp"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textSize="18sp"
+                            android:text="Select Site configuration"
+                            android:textColor="@color/black" />
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/down_arrow"
+                            app:tint="@color/light_grey" />
+                    </LinearLayout>
+
+                    <!-- Selected site container - Shows when site selected -->
+                    <LinearLayout
+                        android:id="@+id/selected_site_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone"
+                        android:layout_marginTop="8dp">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/selected_site"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/white"
+                            app:strokeColor="@color/light_grey"
+                            app:strokeWidth="1dp"
+                            app:cardCornerRadius="8dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingHorizontal="10dp"
+                                android:paddingVertical="8dp"
+                                android:gravity="center_vertical">
+
+                                <com.google.android.material.card.MaterialCardView
+                                    android:layout_width="80dp"
+                                    android:layout_height="80dp"
+                                    android:layout_gravity="center"
+                                    app:cardCornerRadius="8dp"
+                                    app:strokeWidth="0dp">
+
+                                    <ImageView
+                                        android:id="@+id/selected_site_image"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:scaleType="centerCrop"
+                                        android:src="@drawable/siteeee" />
+                                </com.google.android.material.card.MaterialCardView>
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="15dp"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/selected_site_name"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:ellipsize="end"
+                                        android:maxLines="1"
+                                        android:text="Site Name"
+                                        android:textColor="@color/black"
+                                        android:textFontWeight="500"
+                                        android:textSize="18sp" />
+
+                                    <TextView
+                                        android:id="@+id/selected_site_address"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:ellipsize="end"
+                                        android:maxLines="2"
+                                        android:text="Address"
+                                        android:textColor="@color/light_grey"
+                                        android:textSize="14sp" />
+
+                                    <TextView
+                                        android:id="@+id/selected_site_description"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:ellipsize="end"
+                                        android:maxLines="2"
+                                        android:text="Description"
+                                        android:textColor="@color/light_grey"
+                                        android:textSize="14sp" />
+                                </LinearLayout>
+
+                                <ImageButton
+                                    android:id="@+id/site_discard"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:background="?attr/selectableItemBackgroundBorderless"
+                                    android:src="@drawable/close"
+                                    app:tint="@color/black" />
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Employee Section -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="Employees"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <LinearLayout
+                        android:id="@+id/select_employee_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@drawable/text_field"
+                        android:paddingHorizontal="20dp"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textSize="18sp"
+                            android:text="Select Employees"
+                            android:textColor="@color/black" />
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/down_arrow"
+                            app:tint="@color/light_grey" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/selected_employees_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone"
+                        android:layout_marginTop="8dp">
+
+                        <LinearLayout
+                            android:id="@+id/selected_employees_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical" />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+            <!-- Employee Section -->
+
+            <LinearLayout
+                android:id="@+id/employeeFields"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="Supervisor"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <!-- Select supervisor btn - ALWAYS VISIBLE -->
+                    <LinearLayout
+                        android:id="@+id/select_supervisor_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@drawable/text_field"
+                        android:paddingHorizontal="20dp"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textSize="18sp"
+                            android:text="Select Supervisor"
+                            android:textColor="@color/black" />
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/down_arrow"
+                            app:tint="@color/light_grey" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/selected_supervisor_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone"
+                        android:layout_marginTop="8dp">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/selected_supervisor"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/white"
+                            app:strokeColor="@color/light_grey"
+                            app:strokeWidth="1dp"
+                            app:cardCornerRadius="8dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingHorizontal="10dp"
+                                android:paddingVertical="8dp"
+                                android:gravity="center_vertical">
+
+                                <com.google.android.material.card.MaterialCardView
+                                    android:layout_width="80dp"
+                                    android:layout_height="80dp"
+                                    android:layout_gravity="center"
+                                    app:cardCornerRadius="8dp"
+                                    app:strokeWidth="0dp">
+
+                                    <ImageView
+                                        android:id="@+id/selected_supervisor_image"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:scaleType="centerCrop"
+                                        android:src="@drawable/siteeee" />
+                                </com.google.android.material.card.MaterialCardView>
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="15dp"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/selected_supervisor_name"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:ellipsize="end"
+                                        android:maxLines="1"
+                                        android:text="Site Name"
+                                        android:textColor="@color/black"
+                                        android:textFontWeight="500"
+                                        android:textSize="18sp" />
+
+                                    <TextView
+                                        android:id="@+id/selected_supervisor_email"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:ellipsize="end"
+                                        android:maxLines="2"
+                                        android:text="Address"
+                                        android:textColor="@color/light_grey"
+                                        android:textSize="14sp" />
+                                </LinearLayout>
+
+                                <ImageButton
+                                    android:id="@+id/supervisor_discard"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:background="?attr/selectableItemBackgroundBorderless"
+                                    android:src="@drawable/close"
+                                    app:tint="@color/black" />
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/add_user_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginVertical="40dp"
+                    android:backgroundTint="@color/primary_blue"
+                    android:text="Submit"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:cornerRadius="10dp"
+                    app:rippleColor="@color/transparent" />
+                <ProgressBar
+                    android:id="@+id/addUser_progress_bar"
+                    android:layout_width="35dp"
+                    android:layout_centerInParent="true"
+                    android:indeterminateTint="@color/white"
+                    android:layout_height="35dp"
+                    android:visibility="gone"/>
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

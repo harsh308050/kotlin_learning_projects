@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingHorizontal="15dp"
+    android:paddingTop="20dp"
+    android:orientation="vertical">
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/site_search_field"
+                android:background="@drawable/text_field"
+                android:layout_weight="1"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginRight="15dp"
+                android:drawableStart="@drawable/search"
+                android:drawablePadding="10dp"
+                android:drawableTint="@color/light_grey"
+                android:hint="Search Site..."
+                android:inputType="text"
+                android:paddingHorizontal="20dp"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/manage_site_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="start"
+                android:text="Manage Field Sites"
+                android:textColor="@color/black"
+                android:textFontWeight="500"
+                android:textSize="22sp" />
+
+            <ImageButton
+                android:id="@+id/site_search_btn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:backgroundTint="@color/white_light"
+                android:background="@drawable/floating_btn"
+                android:src="@drawable/search" />
+        </LinearLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+    <ScrollView
+        android:scrollbars="none"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <FrameLayout
+
+                android:id="@+id/addSiteBtn"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="@drawable/dashed_border">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:background="@drawable/floating_btn"
+                        android:backgroundTint="@color/blue_light"
+                        android:padding="5dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/location"
+                        app:tint="@color/primary_blue" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Add New Site"
+                        android:textColor="@color/primary_blue"
+                        android:textFontWeight="600"
+                        android:textSize="20dp"
+                        android:textAlignment="center" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Set up new location for workforce tracking"
+                        android:textAlignment="center"
+                        android:maxLines="1"
+                        android:textColor="@color/light_grey" />
+                </LinearLayout>
+            </FrameLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="All Sites"
+                    android:textColor="@color/black"
+                    android:textAllCaps="true"
+                    android:textFontWeight="500"
+                    android:textSize="16sp"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/siteViewAllBtn"
+                    android:padding="0dp"
+                    app:rippleColor="@null"
+                    android:backgroundTint="@color/transparent"
+                    android:text="View All"
+                    android:textColor="@color/primary_blue"
+                    android:textFontWeight="500"
+                    android:textSize="16sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/shopProdRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="none"
+                tools:listitem="@layout/manager_sites_fragment_item_card" />
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

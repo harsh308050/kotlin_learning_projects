@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="btnHeight">55dp</dimen>
+    <dimen name="btnRadius">10dp</dimen>
+    <dimen name="btnText">18sp</dimen>
+    <dimen name="txtLabel">16sp</dimen>
+    <dimen name="txtBtn">15sp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+</resources>

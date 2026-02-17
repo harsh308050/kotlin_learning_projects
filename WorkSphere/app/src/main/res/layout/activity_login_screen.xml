@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".initial.auth.ui.LoginActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="60dp"
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_alignParentTop="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/login_hero" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/app_name"
+            android:textColor="@color/black"
+            android:textFontWeight="600"
+            android:textSize="38dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="-10dp"
+            android:text="Manage your field operation seamlessly and stay connected"
+            android:textAlignment="center"
+            android:textColor="@color/light_grey"
+            android:textFontWeight="300"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:paddingHorizontal="20dp"
+        android:layout_marginBottom="60dp"
+        android:orientation="vertical">
+
+       <RelativeLayout
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content">
+           <com.google.android.material.button.MaterialButton
+               android:id="@+id/continue_with_google_btn"
+               android:layout_width="match_parent"
+               android:layout_height="55dp"
+               android:backgroundTint="@color/white"
+               android:text="@string/continue_with_google"
+               android:textColor="@color/splash_background"
+               android:textSize="16sp"
+               app:cornerRadius="10dp"
+               app:icon="@drawable/google"
+               app:iconGravity="textStart"
+               app:iconPadding="15dp"
+               app:iconSize="20dp"
+               app:rippleColor="@color/transparent"
+               app:iconTint="@null"
+               app:strokeColor="@color/light_grey"
+               app:strokeWidth="1dp" />
+           <ProgressBar
+               android:id="@+id/login_progress_bar"
+               android:layout_width="35dp"
+               android:layout_centerInParent="true"
+               android:backgroundTint="@color/blue_light"
+               android:progressTint="@color/primary_blue_dark"
+               android:layout_height="35dp"
+               android:visibility="gone"/>
+       </RelativeLayout>
+
+        <GridLayout
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:columnCount="3">
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="0dp"
+                android:translationY="10dp"
+                app:dividerColor="@color/light_grey"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:gravity="center" />
+
+            <TextView
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:textAlignment="center"
+                android:textFontWeight="500"
+                android:textColor="@color/light_grey"
+                android:textAllCaps="true"
+                android:letterSpacing="0.1"
+                android:text="Secure Login" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="0dp"
+                android:translationY="10dp"
+                android:layout_height="wrap_content"
+                app:dividerColor="@color/light_grey"
+                android:layout_columnWeight="1"
+                android:gravity="center" />
+        </GridLayout>
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textFontWeight="400"
+            android:textColor="@color/black"
+            android:text="By Continuing, you agree to our Terms of Service" />
+    </LinearLayout>
+</RelativeLayout>

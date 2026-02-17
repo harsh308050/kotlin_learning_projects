@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:visibility="visible"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/employee_card"
+    android:layout_marginVertical="4dp"
+    android:layout_marginHorizontal="4dp"
+    android:backgroundTint="@color/white"
+    app:cardCornerRadius="8dp"
+    app:strokeWidth="1dp"
+    app:strokeColor="@color/light_grey">
+
+    <LinearLayout
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            app:cardCornerRadius="100dp"
+            app:strokeWidth="0dp">
+
+            <ImageView
+                android:id="@+id/selected_supervisor_image"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/siteeee" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/selected_supervisor_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="start"
+                android:maxLines="1"
+                android:text="Supervisor Name"
+                android:textColor="@color/black"
+                android:textFontWeight="500"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/selected_supervisor_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="email@example.com"
+                android:textColor="@color/light_grey"
+                android:textFontWeight="400"
+                android:textSize="14sp" />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/assigned_badge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp"
+            android:text="Assigned"
+            android:textSize="12sp"
+            android:textColor="@color/white"
+            android:background="@drawable/circular_border"
+            android:backgroundTint="@color/orange"
+            android:visibility="gone" />
+        <!-- Add checkbox indicator -->
+        <CheckBox
+            android:id="@+id/selection_checkbox"
+            android:layout_width="wrap_content"
+            android:checked="false"
+            android:buttonTint="@color/primary_blue"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:clickable="false"
+            android:focusable="false" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

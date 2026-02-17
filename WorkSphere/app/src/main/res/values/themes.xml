@@ -1,8 +1,16 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.WorkSphere" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <style name="Base.Theme.WorkSphere" parent="Theme.Material3.Light.NoActionBar">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:fontFamily">@font/mitr</item>
+        <item name="fontFamily">@font/mitr</item>
+        <item name="android:dropDownListViewStyle">@style/DropDownListViewStyle</item>
+    </style>
+
+    <style name="DropDownListViewStyle" parent="android:Widget.ListView.DropDown">
+        <item name="android:background">@color/white</item>
     </style>
 
     <style name="Theme.WorkSphere" parent="Base.Theme.WorkSphere" />

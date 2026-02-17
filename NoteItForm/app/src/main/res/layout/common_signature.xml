@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.harsh.noteitform.components.CommonHeader
+            android:id="@+id/signatureHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:id="@+id/btnContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Draw Signature Button (Selected by default) -->
+            <com.google.android.material.button.MaterialButton
+                app:cornerRadius="10dp"
+                android:backgroundTint="@color/dark_grey"
+                android:layout_weight="1"
+                android:text="Draw Signature"
+                android:id="@+id/drawSign"
+                android:layout_marginRight="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"/>
+
+            <!-- Upload Image Button (Unselected by default) -->
+            <com.google.android.material.button.MaterialButton
+                app:cornerRadius="10dp"
+                android:backgroundTint="@color/light_grey"
+                android:textColor="@color/black"
+                android:layout_weight="1"
+                android:text="Upload an Image"
+                android:layout_marginLeft="5dp"
+                android:id="@+id/uploadImage"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/signaturePad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="12dp"
+            app:strokeColor="@color/dark_grey"
+            app:strokeWidth="1dp">
+
+            <!-- Canvas visible by default -->
+            <com.harsh.noteitform.components.SignatureCanvas
+                android:id="@+id/signatureCanvas"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@color/light_grey"
+                android:visibility="visible" />
+
+            <!-- ImageView hidden by default -->
+            <ImageView
+                android:id="@+id/uploadedSign"
+                android:background="@color/light_grey"
+                android:scaleType="fitCenter"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:visibility="gone"/>
+            <TextView
+                android:id="@+id/signHint"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Clear button only for canvas -->
+        <ImageButton
+            android:id="@+id/btnClearSignature"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:backgroundTint="@color/transparent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/delete"
+            app:tint="@color/orange"
+            android:visibility="visible"/>
+    </RelativeLayout>
+
+</LinearLayout>

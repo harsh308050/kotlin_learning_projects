@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.google.android.material.card.MaterialCardView android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:backgroundTint="@color/white"
+    app:strokeWidth="1dp"
+    android:layout_marginTop="10dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="180dp">
+
+                <ImageView
+                    android:id="@+id/siteImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:background="@drawable/circular_border"
+                    android:backgroundTint="@color/primary_blue"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/siteeee" />
+
+
+                <TextView
+                    android:layout_margin="10dp"
+                    android:id="@+id/siteStatusBadge"
+                    android:layout_alignParentEnd="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/circular_border"
+                    android:backgroundTint="@color/primary_blue"
+                    android:gravity="center"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="3dp"
+                    android:text="Pending Assignment"
+                    android:textColor="@color/white"
+                    android:textFontWeight="500"
+                    android:textSize="11sp" />
+                <ImageButton
+                    android:id="@+id/site_dlt_btn"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_margin="10dp"
+
+                    android:src="@drawable/delete"
+                    android:background="@drawable/circular_border"
+                    android:backgroundTint="@color/red_light"
+                    app:tint="@color/red"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"/>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/siteName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="marquee"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="North West Logistics"
+                    android:textColor="@color/black"
+                    android:textFontWeight="500"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/siteCategory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:text="Address Address Address Address Address Address Address Address Address  Address Address"
+                    android:textColor="@color/light_grey"
+                    android:textFontWeight="400"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
