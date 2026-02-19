@@ -64,6 +64,7 @@ class SiteViewModel : ViewModel() {
     val isEditMode: LiveData<Boolean> = _isEditMode
 
     private var currentSiteId: String = ""
+    private var originalSupervisorId: String = ""
     private val _isActive = MutableLiveData(true)
     val isActive: LiveData<Boolean> = _isActive
     private val _siteImageUrl = MutableLiveData<String>()
@@ -97,6 +98,7 @@ class SiteViewModel : ViewModel() {
     fun loadSiteForEditing(site: SiteModel) {
         _isEditMode.value = true
         currentSiteId = site.siteId
+        originalSupervisorId = site.supervisorId
         _siteName.value = site.siteName
         _clientName.value = site.clientName
         _supervisor.value = SupervisorInfo(
@@ -118,6 +120,7 @@ class SiteViewModel : ViewModel() {
     fun clearEditMode() {
         _isEditMode.value = false
         currentSiteId = ""
+        originalSupervisorId = ""
         clear()
     }
 
@@ -214,9 +217,18 @@ class SiteViewModel : ViewModel() {
             }
 
             if (success) {
-                // Sync assignedSite to the supervisor and all their employees
-                if (site.supervisorId.isNotEmpty() && savedSiteId.isNotEmpty()) {
-                    repository.syncUsersWithSite(savedSiteId, site.supervisorId)
+                val isEdit = _isEditMode.value == true
+                val oldSupervisorId = originalSupervisorId
+                val newSupervisorId = site.supervisorId
+
+                if (isEdit && oldSupervisorId.isNotEmpty() && oldSupervisorId != newSupervisorId) {
+                    // Supervisor was removed or changed — clear assignedSite from old supervisor & their employees
+                    repository.clearUsersFromSite(oldSupervisorId)
+                }
+
+                // Sync assignedSite to the new supervisor and all their employees
+                if (newSupervisorId.isNotEmpty() && savedSiteId.isNotEmpty()) {
+                    repository.syncUsersWithSite(savedSiteId, newSupervisorId)
                 }
                 _success.value = true
             }

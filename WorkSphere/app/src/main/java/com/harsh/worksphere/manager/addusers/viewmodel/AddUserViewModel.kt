@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.harsh.worksphere.core.utils.Result
 import com.harsh.worksphere.initial.auth.data.model.User
 import com.harsh.worksphere.initial.auth.data.model.UserRole
+import com.harsh.worksphere.initial.auth.data.model.UserStatus
 import com.harsh.worksphere.initial.auth.data.remote.FirestoreDataSource
 import kotlinx.coroutines.launch
 
@@ -47,7 +48,8 @@ class AddUserViewModel : ViewModel() {
                     UserRole.Supervisor -> selectedSite
                     UserRole.Employee -> supervisorSiteId
                     else -> null
-                }
+                },
+                status = UserStatus.OFFLINE
             )
 
             // Step 1: Create the new user (supervisor or employee)

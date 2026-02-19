@@ -13,11 +13,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.material.button.MaterialButton
 import com.harsh.worksphere.R
+import com.harsh.worksphere.employee.home.EmployeeHomeActivity
 import com.harsh.worksphere.initial.auth.data.repo.*
 import com.harsh.worksphere.initial.auth.data.model.*
 import com.harsh.worksphere.initial.auth.data.remote.*
 import com.harsh.worksphere.initial.auth.viewmodel.AuthViewModel
 import com.harsh.worksphere.manager.home.ManagerHomeActivity
+import com.harsh.worksphere.supervisor.home.SupervisorHomeActivity
 import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
@@ -106,8 +108,8 @@ class LoginActivity : AppCompatActivity() {
     private fun navigateToHome(authResult: AuthResult) {
         val targetClass = when (authResult.role) {
             is UserRole.Manager -> ManagerHomeActivity::class.java
-            is UserRole.Supervisor -> ManagerHomeActivity::class.java
-            is UserRole.Employee ->ManagerHomeActivity::class.java
+            is UserRole.Supervisor -> SupervisorHomeActivity::class.java
+            is UserRole.Employee -> EmployeeHomeActivity::class.java
         }
 
         val intent = Intent(this, targetClass).apply {

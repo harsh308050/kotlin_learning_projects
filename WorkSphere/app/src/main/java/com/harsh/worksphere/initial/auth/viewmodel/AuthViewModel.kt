@@ -110,7 +110,8 @@ class AuthViewModel(
                     email = email,
                     name = name,
                     profilePic = profilePic,
-                    role = role
+                    role = role,
+                    status = UserStatus.OFFLINE
                 )
 
                 when (val createResult = userRepository.createUser(user)) {

@@ -56,6 +56,7 @@ dependencies {
     implementation(libs.firebase.analytics)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.glide)
     implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
     implementation("androidx.credentials:credentials:1.5.0")
@@ -64,5 +65,6 @@ dependencies {
     implementation("com.google.android.gms:play-services-maps:18.2.0")
     implementation("com.google.android.libraries.places:places:3.3.0")
     implementation("com.google.android.gms:play-services-location:21.1.0")
+    implementation(libs.shimmer)
 
 }

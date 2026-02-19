@@ -118,7 +118,6 @@ class EmployeeSelectionAdapter(
 
         private fun handleClick(employee: User, isAlreadyAssigned: Boolean, isPendingReassignment: Boolean) {
             if (isPendingReassignment) {
-                // Toggle off - cancel reassignment
                 pendingReassignments.remove(employee.email)
                 selectedEmployees.remove(employee)
                 notifyItemChanged(adapterPosition)

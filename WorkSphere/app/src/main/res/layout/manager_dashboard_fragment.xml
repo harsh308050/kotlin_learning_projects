@@ -35,21 +35,24 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:text="Manager Dashboard"
+                android:text="Dashboard"
+
+                android:textColor="@color/black"
                 android:textAlignment="center"
                 android:textFontWeight="500"
-                android:textSize="18dp" />
+                android:textSize="22dp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center">
 
-                <ImageView
+                <ImageButton
                     android:id="@+id/manager_dashboard_notification_btn"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_gravity="center"
+                    android:background="@color/transparent"
                     android:layout_marginRight="10dp"
                     android:padding="5dp"
                     android:scaleType="fitXY"
@@ -99,6 +102,7 @@
                         android:textSize="14dp" />
 
                     <TextView
+                        android:id="@+id/manager_dashboard_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Today, Feb 6"
@@ -135,6 +139,8 @@
                 android:layout_height="15dp" />
 
             <androidx.cardview.widget.CardView
+
+                android:id="@+id/total_sites_card"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:backgroundTint="@color/primary_blue_dark"
@@ -157,16 +163,17 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:letterSpacing="0.1"
-                            android:text="Overview"
+                            android:text="Total Sites"
                             android:textAllCaps="true"
                             android:textColor="@color/white_light"
                             android:textFontWeight="400"
                             android:textSize="14dp" />
 
                         <TextView
+                            android:id="@+id/site_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="45"
+                            android:text="..."
                             android:textColor="@color/white"
                             android:textFontWeight="500"
                             android:textSize="28sp" />
@@ -229,33 +236,14 @@
                                 android:textColor="@color/primary_blue_dark"
                                 android:textSize="16sp" />
 
-                            <LinearLayout
+                            <TextView
+                                android:id="@+id/supervisor_count"
                                 android:layout_width="wrap_content"
-
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="start">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="8"
-                                    android:textColor="@color/black"
-                                    android:textSize="25sp" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="/"
-                                    android:textColor="@color/light_grey"
-                                    android:textSize="20sp" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="10"
-                                    android:textColor="@color/light_grey"
-                                    android:textSize="18sp" />
-                            </LinearLayout>
+                                android:text="..."
+                                android:layout_gravity="start"
+                                android:textColor="@color/black"
+                                android:textSize="25sp" />
 
                         </LinearLayout>
 
@@ -306,16 +294,17 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="start"
-                                android:text="Online Staff"
+                                android:text="Employees"
                                 android:textColor="@color/green"
                                 android:textSize="16sp" />
 
 
                             <TextView
+                                android:id="@+id/employee_count"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="start"
-                                android:text="62"
+                                android:text="..."
                                 android:textColor="@color/black"
                                 android:textSize="25sp" />
                         </LinearLayout>

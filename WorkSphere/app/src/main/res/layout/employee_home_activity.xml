@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/white"
+    android:layout_height="match_parent"
+    tools:context=".employee.home.EmployeeHomeActivity">
+
+
+    <FrameLayout
+        android:id="@+id/fragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/employee_bottom_nav" />
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="0dp"
+        android:id="@+id/employee_bottom_nav"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_alignParentBottom="true"
+        app:itemTextAppearanceActive="@style/BottomNavText"
+        app:itemTextAppearanceInactive="@style/BottomNavText"
+        android:background="@color/white"
+        app:itemIconSize="25dp"
+        app:itemActiveIndicatorStyle="@color/transparent"
+        app:itemHorizontalTranslationEnabled="false"
+        app:itemIconTint="@color/employee_bottom_nav_selector"
+        app:itemRippleColor="@null"
+        app:itemIconGravity="top"
+        app:labelVisibilityMode="labeled"
+        app:itemTextColor="@color/employee_bottom_nav_selector"
+        app:menu="@menu/employee_bottom_nav_menu" />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="75dp"
+        app:dividerColor="@color/light_grey" />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/add_user"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="50dp"
+        android:backgroundTint="@color/black"
+        app:icon="@drawable/add"
+        app:iconTint="@color/white"
+        app:rippleColor="@color/black"
+        app:shapeAppearance="@null"
+        app:cornerRadius="50dp"
+        app:tint="@color/white" />
+</RelativeLayout>

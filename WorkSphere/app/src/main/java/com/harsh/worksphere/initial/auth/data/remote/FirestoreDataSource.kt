@@ -157,4 +157,35 @@ class FirestoreDataSource {
             Result.Error(e.message ?: "Failed to fetch assigned employees")
         }
     }
+
+    suspend fun clearAssignedSite(email: String): Result<Unit> {
+        return try {
+            usersCollection.document(email).update("assignedSite", "").await()
+            Result.Success(Unit)
+        } catch (e: Exception) {
+            Result.Error(e.message ?: "Failed to clear assigned site")
+        }
+    }
+
+    suspend fun updateUserProfile(email: String, name: String, phone: String): Result<Unit> {
+        return try {
+            val updates = hashMapOf<String, Any>(
+                "name" to name,
+                "phone" to phone
+            )
+            usersCollection.document(email).update(updates).await()
+            Result.Success(Unit)
+        } catch (e: Exception) {
+            Result.Error(e.message ?: "Failed to update profile")
+        }
+    }
+
+    suspend fun updateProfilePic(email: String, profilePicPath: String): Result<Unit> {
+        return try {
+            usersCollection.document(email).update("profilePic", profilePicPath).await()
+            Result.Success(Unit)
+        } catch (e: Exception) {
+            Result.Error(e.message ?: "Failed to update profile picture")
+        }
+    }
 }

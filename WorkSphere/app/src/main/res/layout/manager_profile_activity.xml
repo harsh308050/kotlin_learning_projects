@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    tools:context=".manager.settings.ManagerProfileActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="10dp"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/navback"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@color/transparent"
+                android:src="@drawable/back_arrow" />
+
+            <TextView
+                android:id="@+id/screen_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Profile"
+                android:textColor="@color/black"
+                android:textFontWeight="500"
+                android:textSize="22sp" />
+        </LinearLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:paddingHorizontal="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="2dp"
+                    android:text="Name"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/manager_name_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/btnHeight"
+                    android:background="@drawable/text_field"
+                    android:drawableStart="@drawable/ic_user_small"
+                    android:drawablePadding="10dp"
+                    android:drawableTint="@color/light_grey"
+                    android:hint="Enter your name"
+                    android:inputType="text"
+                    android:paddingHorizontal="20dp"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="2dp"
+                    android:text="Email"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/manager_email_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/btnHeight"
+                    android:background="@drawable/text_field"
+                    android:drawableStart="@drawable/email"
+                    android:drawablePadding="10dp"
+                    android:drawableTint="@color/light_grey"
+                    android:hint="Manager Email"
+                    android:enabled="false"
+                    android:focusable="false"
+                    android:alpha="0.6"
+                    android:inputType="none"
+                    android:paddingHorizontal="20dp"
+                    android:textColor="@color/dark_grey" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="2dp"
+                    android:text="Phone Number"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/manager_number_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/btnHeight"
+                    android:background="@drawable/text_field"
+                    android:drawableStart="@drawable/phone"
+                    android:drawablePadding="10dp"
+                    android:drawableTint="@color/light_grey"
+                    android:hint="Enter your mobile number"
+                    android:inputType="number"
+                    android:maxLength="10"
+                    android:paddingHorizontal="20dp"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="40dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/manager_profile_update_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:backgroundTint="@color/primary_blue"
+                    android:text="Update Profile"
+                    android:textColor="@color/white"
+                    android:textFontWeight="500"
+                    android:textSize="18sp"
+                    app:cornerRadius="10dp"
+                    app:rippleColor="@color/primary_blue_dark" />
+
+                <ProgressBar
+                    android:id="@+id/profile_progress_bar"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center"
+                    android:indeterminateTint="@color/white"
+                    android:visibility="gone" />
+            </FrameLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -74,4 +74,24 @@ class SiteRepository {
             }
         }
     }
+
+    /**
+     * When a supervisor is removed from a site, clear the assignedSite for:
+     * 1. The supervisor's user document
+     * 2. All employees under that supervisor
+     */
+    suspend fun clearUsersFromSite(supervisorEmail: String) {
+        if (supervisorEmail.isEmpty()) return
+
+        // Clear supervisor's assignedSite
+        firestoreDataSource.clearAssignedSite(supervisorEmail)
+
+        // Get all employees assigned to this supervisor and clear their assignedSite
+        val employeesResult = firestoreDataSource.getAssignedEmployees(supervisorEmail)
+        if (employeesResult is Result.Success) {
+            employeesResult.data.forEach { employeeEmail ->
+                firestoreDataSource.clearAssignedSite(employeeEmail)
+            }
+        }
+    }
 }

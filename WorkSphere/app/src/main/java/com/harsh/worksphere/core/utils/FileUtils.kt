@@ -8,13 +8,13 @@ import java.util.UUID
 
 object FileUtils {
 
-    fun copyImageToAppStorage(context: Context, sourceUri: Uri): String? {
+    fun copyImageToAppStorage(context: Context, sourceUri: Uri, folder: String = "site_images", prefix: String = "site"): String? {
         return try {
             val inputStream = context.contentResolver.openInputStream(sourceUri)
-            val dir = File(context.filesDir, "site_images")
+            val dir = File(context.filesDir, folder)
             if (!dir.exists()) dir.mkdirs()
 
-            val fileName = "site_${UUID.randomUUID()}.jpg"
+            val fileName = "${prefix}_${UUID.randomUUID()}.jpg"
             val destFile = File(dir, fileName)
 
             inputStream?.use { input ->

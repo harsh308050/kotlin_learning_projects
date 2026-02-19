@@ -6,7 +6,9 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
 
     <application
@@ -18,6 +20,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WorkSphere">
+        <activity
+            android:name=".manager.notifications.ManagerNotificationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".manager.settings.ManagerProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".employee.home.EmployeeHomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".supervisor.home.SupervisorHomeActivity"
+            android:exported="false" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

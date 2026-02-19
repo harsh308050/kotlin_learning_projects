@@ -35,7 +35,6 @@ import com.harsh.worksphere.R
 import com.harsh.worksphere.components.CommonBottomSheet
 import com.harsh.worksphere.core.firebase.FirebaseModule
 import com.harsh.worksphere.initial.auth.data.model.User
-import com.harsh.worksphere.initial.auth.data.model.UserRole
 import com.harsh.worksphere.manager.sites.MapManager
 import com.harsh.worksphere.manager.sites.MapManagerCallback
 import com.harsh.worksphere.manager.sites.data.model.SiteLocation
@@ -92,7 +91,7 @@ class ManagerAddSiteActivity : AppCompatActivity(), MapManagerCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_manager_add_site)
+        setContentView(R.layout.manager_add_site_activity)
 
         isEditMode = intent.getBooleanExtra("IS_EDIT_MODE", false)
 

@@ -7,8 +7,10 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
 import android.widget.ImageButton
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -17,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
 import com.harsh.worksphere.R
 import com.harsh.worksphere.manager.sites.ui.adapter.SitesAdapter
+import com.facebook.shimmer.ShimmerFrameLayout
 import com.harsh.worksphere.manager.sites.viewmodel.SiteViewModel
 
 class ManagerSitesFragment : Fragment(R.layout.manager_sites_fragment) {
@@ -26,9 +29,11 @@ class ManagerSitesFragment : Fragment(R.layout.manager_sites_fragment) {
     private lateinit var manageHeader: TextView
     private lateinit var searchField: TextInputEditText
     private lateinit var recyclerView: RecyclerView
+    private lateinit var emptyState: LinearLayout
 
     private val viewModel: SiteViewModel by viewModels()
     private var sitesAdapter: SitesAdapter? = null
+    private lateinit var shimmerLayout: ShimmerFrameLayout
 
     private var allSites: List<com.harsh.worksphere.manager.sites.data.model.SiteModel> = emptyList()
 
@@ -52,6 +57,8 @@ class ManagerSitesFragment : Fragment(R.layout.manager_sites_fragment) {
         manageHeader = view.findViewById(R.id.manage_site_header)
         searchField = view.findViewById(R.id.site_search_field)
         recyclerView = view.findViewById(R.id.shopProdRecycler)
+        shimmerLayout = view.findViewById(R.id.sites_shimmer_layout)
+        emptyState = view.findViewById(R.id.sitesEmptyState)
     }
 
     private fun setupListeners() {
@@ -123,10 +130,26 @@ class ManagerSitesFragment : Fragment(R.layout.manager_sites_fragment) {
         viewModel.sites.observe(viewLifecycleOwner) { sites ->
             allSites = sites
             sitesAdapter?.submitList(sites)
+            // Show empty state only when not loading and list is empty
+            val isLoading = viewModel.isLoadingSites.value == true
+            emptyState.isVisible = sites.isEmpty() && !isLoading
+            recyclerView.isVisible = sites.isNotEmpty()
         }
 
         viewModel.error.observe(viewLifecycleOwner) { error ->
             error?.let { Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show() }
+        }
+
+        viewModel.isLoadingSites.observe(viewLifecycleOwner) { loading ->
+            if (loading) {
+                shimmerLayout.isVisible = true
+                shimmerLayout.startShimmer()
+                recyclerView.isVisible = false
+                emptyState.isVisible = false
+            } else {
+                shimmerLayout.stopShimmer()
+                shimmerLayout.isVisible = false
+            }
         }
     }
 
