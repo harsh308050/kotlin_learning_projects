@@ -2,12 +2,17 @@ package com.harsh.worksphere.manager.sites.ui
 
 import android.Manifest
 import android.app.Activity
+import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
-import com.harsh.worksphere.core.utils.FileUtils
+import com.harsh.worksphere.core.utils.CloudinaryHelper
 import android.provider.MediaStore
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.FrameLayout
@@ -16,7 +21,6 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
-import android.widget.Toast
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.activity.result.contract.ActivityResultContracts
@@ -25,12 +29,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.material.card.MaterialCardView
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.materialswitch.MaterialSwitch
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat
 import com.harsh.worksphere.R
 import com.harsh.worksphere.components.CommonBottomSheet
 import com.harsh.worksphere.core.firebase.FirebaseModule
@@ -43,6 +51,9 @@ import com.harsh.worksphere.manager.sites.data.model.SiteStatus
 import com.harsh.worksphere.manager.sites.data.model.SupervisorInfo
 import com.harsh.worksphere.manager.sites.ui.adapter.SupervisorAdapter
 import com.harsh.worksphere.manager.sites.viewmodel.SiteViewModel
+import com.harsh.worksphere.components.CommonSnackbar.showError
+import com.harsh.worksphere.components.CommonSnackbar.showSuccessAndFinish
+import kotlinx.coroutines.launch
 
 class ManagerAddSiteActivity : AppCompatActivity(), MapManagerCallback {
 
@@ -64,6 +75,8 @@ class ManagerAddSiteActivity : AppCompatActivity(), MapManagerCallback {
     private lateinit var deleteSupervisorBtn: ImageButton
     private lateinit var loader: ProgressBar
     private lateinit var mapManager: MapManager
+    private lateinit var visitTimeFromField: TextView
+    private lateinit var visitTimeToField: TextView
     private val viewModel: SiteViewModel by viewModels()
 
     private var supervisorBottomSheet: CommonBottomSheet? = null
@@ -71,6 +84,7 @@ class ManagerAddSiteActivity : AppCompatActivity(), MapManagerCallback {
     private lateinit var selectedSiteImage: ImageView
     private var supervisorAdapter: SupervisorAdapter? = null
     private var pendingLocation: SiteLocation? = null
+    private var selectedImageUri: Uri? = null
 
     private var isEditMode = false
     private lateinit var siteActiveToggle: MaterialSwitch
@@ -133,6 +147,8 @@ class ManagerAddSiteActivity : AppCompatActivity(), MapManagerCallback {
         statusDropdown = findViewById(R.id.site_status_dropdown)
         addSiteImageBtn = findViewById(R.id.addSiteImageBtn)
         selectedSiteImage = findViewById(R.id.selectedSiteImage)
+        visitTimeFromField = findViewById(R.id.visit_time_from_field)
+        visitTimeToField = findViewById(R.id.visit_time_to_field)
     }
 
     private fun configureEditMode() {
@@ -184,6 +200,8 @@ class ManagerAddSiteActivity : AppCompatActivity(), MapManagerCallback {
             viewModel.setActive(isChecked)
         }
         addSiteImageBtn.setOnClickListener { openGallery() }
+        visitTimeFromField.setOnClickListener { showTimePicker(isFromTime = true) }
+        visitTimeToField.setOnClickListener { showTimePicker(isFromTime = false) }
     }
     private fun openGallery() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
@@ -191,34 +209,67 @@ class ManagerAddSiteActivity : AppCompatActivity(), MapManagerCallback {
     }
 
     private fun handleSelectedImage(uri: Uri) {
-        // Copy image to app private storage for persistent access
-        val persistentPath = FileUtils.copyImageToAppStorage(this, uri)
+        // Store URI for upload at submit time
+        selectedImageUri = uri
 
-        if (persistentPath != null) {
-            // Store path in ViewModel
-            viewModel.setSiteImagePath(persistentPath)
+        // Show preview from local URI
+        addSiteImageBtn.isVisible = false
+        selectedSiteImage.isVisible = true
 
-            // Show selected image
-            addSiteImageBtn.isVisible = false
-            selectedSiteImage.isVisible = true
+        Glide.with(this)
+            .load(uri)
+            .placeholder(R.drawable.siteeee)
+            .into(selectedSiteImage)
+    }
 
-            // Load image
-            Glide.with(this)
-                .load(persistentPath)
-                .placeholder(R.drawable.siteeee)
-                .into(selectedSiteImage)
-        } else {
-            Toast.makeText(this, "Failed to save image", Toast.LENGTH_SHORT).show()
+    private fun showTimePicker(isFromTime: Boolean) {
+        val title = if (isFromTime) "Select From Time" else "Select To Time"
+        val picker = MaterialTimePicker.Builder()
+            .setTimeFormat(TimeFormat.CLOCK_12H)
+            .setHour(9)
+            .setMinute(0)
+            .setTitleText(title)
+            .setTheme(R.style.ThemeOverlay_WorkSphere_TimePicker)
+            .build()
+
+        picker.addOnPositiveButtonClickListener {
+            val hour = picker.hour
+            val minute = picker.minute
+            val amPm = if (hour < 12) "AM" else "PM"
+            val displayHour = when {
+                hour == 0 -> 12
+                hour > 12 -> hour - 12
+                else -> hour
+            }
+            val formattedTime = String.format("%02d:%02d %s", displayHour, minute, amPm)
+
+            if (isFromTime) {
+                visitTimeFromField.text = formattedTime
+                viewModel.setVisitTimeFrom(formattedTime)
+            } else {
+                visitTimeToField.text = formattedTime
+                viewModel.setVisitTimeTo(formattedTime)
+            }
         }
+
+        picker.show(supportFragmentManager, if (isFromTime) "from_time_picker" else "to_time_picker")
     }
 
 
-
     private fun showSupervisorBottomSheet() {
-        supervisorAdapter = SupervisorAdapter { user ->
-            onSupervisorSelected(user)
-            supervisorBottomSheet?.dismiss()
-        }
+        val editingSiteId = viewModel.getCurrentSiteId()
+
+        supervisorAdapter = SupervisorAdapter(
+            onItemClick = { user ->
+                onSupervisorSelected(user)
+                supervisorBottomSheet?.dismiss()
+            },
+            showAssignmentStatus = true,
+            currentSiteId = editingSiteId,
+            onReassignRequested = { user, callback ->
+                showSupervisorReassignmentDialog(user, callback)
+            }
+        )
 
         supervisorBottomSheet = CommonBottomSheet.newInstance(
             config = CommonBottomSheet.Config(
@@ -236,18 +287,49 @@ class ManagerAddSiteActivity : AppCompatActivity(), MapManagerCallback {
         supervisorBottomSheet?.show(supportFragmentManager, "supervisor_sheet")
         supervisorBottomSheet?.setLoading(true)
         viewModel.fetchSupervisors()
+        viewModel.fetchSites()
+    }
+
+    private fun showSupervisorReassignmentDialog(supervisor: User, callback: (Boolean) -> Unit) {
+        val oldSiteId = supervisor.assignedSite ?: ""
+        val siteName = viewModel.sites.value?.find { it.siteId == oldSiteId }?.siteName ?: "Another Site"
+
+        val dialog = Dialog(this)
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_reassign_supervisor, null)
+        dialog.setContentView(dialogView)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window?.setLayout(
+            (resources.displayMetrics.widthPixels * 0.9).toInt(),
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        dialog.setCancelable(false)
+
+        dialogView.findViewById<TextView>(R.id.dialog_supervisor_name).text = supervisor.name
+        dialogView.findViewById<TextView>(R.id.dialog_current_site).text = siteName
+
+        dialogView.findViewById<MaterialButton>(R.id.dialog_reassign_btn).setOnClickListener {
+            viewModel.setPendingReassignment(oldSiteId, supervisor.email)
+            callback(true)
+            dialog.dismiss()
+        }
+
+        dialogView.findViewById<MaterialButton>(R.id.dialog_cancel_btn).setOnClickListener {
+            callback(false)
+            dialog.dismiss()
+        }
+
+        dialog.show()
     }
 
     private fun setupObservers() {
         viewModel.error.observe(this) { error ->
-            error?.let { Toast.makeText(this, it, Toast.LENGTH_SHORT).show() }
+            error?.let { showError(it) }
         }
 
         viewModel.success.observe(this) { success ->
             if (success) {
                 val message = if (isEditMode) "Site updated successfully!" else "Site saved successfully!"
-                Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-                finish()
+                showSuccessAndFinish(message)
             }
         }
 
@@ -346,6 +428,14 @@ class ManagerAddSiteActivity : AppCompatActivity(), MapManagerCallback {
         // Pre-select current status in dropdown
         statusDropdown.setText(site.status.displayName, false)
 
+        // Set visit timings
+        if (site.visitTimeFrom.isNotEmpty()) {
+            visitTimeFromField.text = site.visitTimeFrom
+        }
+        if (site.visitTimeTo.isNotEmpty()) {
+            visitTimeToField.text = site.visitTimeTo
+        }
+
         pendingLocation = site.location
     }
 
@@ -390,6 +480,7 @@ class ManagerAddSiteActivity : AppCompatActivity(), MapManagerCallback {
 
     private fun removeSelectedSupervisor() {
         viewModel.setSupervisor(null)
+        viewModel.clearPendingReassignment()
         selectedSupervisorCard.isVisible = false
         supervisorPhoneField.setText("")
     }
@@ -420,7 +511,29 @@ class ManagerAddSiteActivity : AppCompatActivity(), MapManagerCallback {
             ))
         }
 
-        viewModel.saveSite(currentUserId)
+        // If a new image was selected, upload to Cloudinary first
+        if (selectedImageUri != null) {
+            loader.isVisible = true
+            submitButton.text = ""
+            submitButton.isEnabled = false
+            lifecycleScope.launch {
+                val cloudinaryUrl = CloudinaryHelper.uploadImage(
+                    this@ManagerAddSiteActivity, selectedImageUri!!, "site_images"
+                )
+                if (cloudinaryUrl != null) {
+                    viewModel.setSiteImagePath(cloudinaryUrl)
+                    selectedImageUri = null
+                    viewModel.saveSite(currentUserId)
+                } else {
+                    loader.isVisible = false
+                    submitButton.text = "Submit"
+                    submitButton.isEnabled = true
+                    showError("Failed to upload image")
+                }
+            }
+        } else {
+            viewModel.saveSite(currentUserId)
+        }
     }
 
     override fun onLocationSelected(latitude: Double, longitude: Double, address: String) {
@@ -430,7 +543,7 @@ class ManagerAddSiteActivity : AppCompatActivity(), MapManagerCallback {
     }
 
     override fun onError(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        showError(message)
     }
 
     override fun onDestroy() {

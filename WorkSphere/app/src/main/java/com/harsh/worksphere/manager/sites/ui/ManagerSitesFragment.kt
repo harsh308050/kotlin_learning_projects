@@ -9,7 +9,6 @@ import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -21,6 +20,7 @@ import com.harsh.worksphere.R
 import com.harsh.worksphere.manager.sites.ui.adapter.SitesAdapter
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.harsh.worksphere.manager.sites.viewmodel.SiteViewModel
+import com.harsh.worksphere.components.CommonSnackbar.showError
 
 class ManagerSitesFragment : Fragment(R.layout.manager_sites_fragment) {
 
@@ -137,7 +137,7 @@ class ManagerSitesFragment : Fragment(R.layout.manager_sites_fragment) {
         }
 
         viewModel.error.observe(viewLifecycleOwner) { error ->
-            error?.let { Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show() }
+            error?.let { showError(it) }
         }
 
         viewModel.isLoadingSites.observe(viewLifecycleOwner) { loading ->

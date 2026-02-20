@@ -14,4 +14,17 @@
     </style>
 
     <style name="Theme.WorkSphere" parent="Base.Theme.WorkSphere" />
+
+    <!-- TimePicker theme overlay using primary_blue -->
+    <style name="ThemeOverlay.WorkSphere.TimePicker" parent="ThemeOverlay.Material3.MaterialTimePicker">
+        <item name="colorPrimary">@color/primary_blue</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryContainer">@color/primary_blue_light</item>
+        <item name="colorOnPrimaryContainer">@color/white</item>
+        <item name="colorSurface">@color/white</item>
+        <item name="colorSurfaceVariant">@color/white</item>
+        <item name="colorSecondaryContainer">@color/primary_blue_light</item>
+        <item name="colorOnSecondaryContainer">@color/white</item>
+        <item name="colorOnSurface">@color/primary_blue</item>
+    </style>
 </resources>

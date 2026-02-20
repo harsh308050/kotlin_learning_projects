@@ -5,12 +5,26 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.harsh.worksphere.core.utils.Result
 import com.harsh.worksphere.initial.auth.data.remote.FirestoreDataSource
 import com.harsh.worksphere.manager.sites.data.model.SiteModel
+import com.harsh.worksphere.manager.sites.data.model.SiteStatus
 import kotlinx.coroutines.tasks.await
 
 class SiteRepository {
     private val firestore = FirebaseFirestore.getInstance()
     private val sitesCollection = firestore.collection("sites")
     private val firestoreDataSource = FirestoreDataSource()
+
+    suspend fun getSiteById(siteId: String): Result<SiteModel?> {
+        return try {
+            val doc = sitesCollection.document(siteId).get().await()
+            if (doc.exists()) {
+                Result.Success(SiteModel.fromMap(doc.id, doc.data ?: emptyMap()))
+            } else {
+                Result.Success(null)
+            }
+        } catch (e: Exception) {
+            Result.Error(e.message ?: "Failed to fetch site")
+        }
+    }
 
     suspend fun createSite(site: SiteModel): Result<String> {
         return try {
@@ -92,6 +106,35 @@ class SiteRepository {
             employeesResult.data.forEach { employeeEmail ->
                 firestoreDataSource.clearAssignedSite(employeeEmail)
             }
+        }
+    }
+
+    /**
+     * When a supervisor is reassigned from one site to another,
+     * clear the supervisor fields on the old site and reset its status.
+     * Also clears assignedSite for the supervisor's employees on the old site.
+     */
+    suspend fun clearSupervisorFromSite(siteId: String, supervisorEmail: String): Result<Unit> {
+        return try {
+            if (siteId.isEmpty()) return Result.Error("Site ID is empty")
+
+            // Clear supervisor fields and reset status on the old site
+            sitesCollection.document(siteId).update(
+                mapOf(
+                    "supervisorId" to "",
+                    "supervisorName" to "",
+                    "supervisorPhone" to "",
+                    "supervisorImageUrl" to "",
+                    "status" to SiteStatus.PENDING_ASSIGNMENT.name
+                )
+            ).await()
+
+            // Clear assignedSite for the supervisor and their employees
+            clearUsersFromSite(supervisorEmail)
+
+            Result.Success(Unit)
+        } catch (e: Exception) {
+            Result.Error(e.message ?: "Failed to clear supervisor from site")
         }
     }
 }

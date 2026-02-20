@@ -5,7 +5,6 @@ import android.view.View
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ProgressBar
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -16,6 +15,8 @@ import com.harsh.worksphere.R
 import com.harsh.worksphere.core.firebase.FirebaseModule
 import com.harsh.worksphere.core.utils.Result
 import com.harsh.worksphere.initial.auth.data.remote.FirestoreDataSource
+import com.harsh.worksphere.components.CommonSnackbar.showError
+import com.harsh.worksphere.components.CommonSnackbar.showSuccessAndFinish
 import kotlinx.coroutines.launch
 
 class ManagerProfileActivity : AppCompatActivity() {
@@ -56,7 +57,7 @@ class ManagerProfileActivity : AppCompatActivity() {
 
     private fun loadUserProfile() {
         if (currentUserEmail.isEmpty()) {
-            Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show()
+            showError("User not logged in")
             return
         }
 
@@ -70,11 +71,11 @@ class ManagerProfileActivity : AppCompatActivity() {
                         emailField.setText(user.email)
                         phoneField.setText(user.phone)
                     } else {
-                        Toast.makeText(this@ManagerProfileActivity, "User not found", Toast.LENGTH_SHORT).show()
+                        showError("User not found")
                     }
                 }
                 is Result.Error -> {
-                    Toast.makeText(this@ManagerProfileActivity, result.message, Toast.LENGTH_SHORT).show()
+                    showError(result.message)
                 }
                 is Result.Loading -> {}
             }
@@ -102,11 +103,10 @@ class ManagerProfileActivity : AppCompatActivity() {
         lifecycleScope.launch {
             when (val result = firestoreDataSource.updateUserProfile(currentUserEmail, name, phone)) {
                 is Result.Success -> {
-                    Toast.makeText(this@ManagerProfileActivity, "Profile updated successfully", Toast.LENGTH_SHORT).show()
-                    finish()
+                    showSuccessAndFinish("Profile updated successfully")
                 }
                 is Result.Error -> {
-                    Toast.makeText(this@ManagerProfileActivity, result.message, Toast.LENGTH_SHORT).show()
+                    showError(result.message)
                 }
                 is Result.Loading -> {}
             }

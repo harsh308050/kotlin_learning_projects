@@ -416,6 +416,91 @@
                     android:scrollbars="vertical" />
             </LinearLayout>
 
+            <!-- Visit Timings Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="Visit Timings"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <!-- From Time -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            android:text="From"
+                            android:textColor="@color/light_grey"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/visit_time_from_field"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/btnHeight"
+                            android:background="@drawable/text_field"
+                            android:drawableStart="@drawable/ic_clock"
+                            android:drawablePadding="10dp"
+                            android:focusable="false"
+                            android:gravity="center_vertical"
+                            android:hint="Select Time"
+                            android:paddingHorizontal="16dp"
+                            android:textColor="@color/black"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+
+                    <!-- To Time -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            android:text="To"
+                            android:textColor="@color/light_grey"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/visit_time_to_field"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/btnHeight"
+                            android:background="@drawable/text_field"
+                            android:drawableStart="@drawable/ic_clock"
+                            android:drawablePadding="10dp"
+                            android:focusable="false"
+                            android:gravity="center_vertical"
+                            android:hint="Select Time"
+                            android:paddingHorizontal="16dp"
+                            android:textColor="@color/black"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
             <com.google.android.material.materialswitch.MaterialSwitch
                 android:id="@+id/site_active_toggle"
                 android:layout_width="match_parent"
@@ -424,9 +509,9 @@
                 android:checked="false"
                 android:text="Site Active"
                 android:textSize="16sp"
-                app:thumbTint="@color/switch_thumb_color"
+                app:thumbTint="@color/manager_switch_thumb_color"
                 app:trackDecorationTint="@color/primary_blue"
-                app:trackTint="@color/switch_track_color" />
+                app:trackTint="@color/manager_switch_track_color" />
 
             <!-- Site Status Dropdown (Edit Mode Only) -->
             <LinearLayout

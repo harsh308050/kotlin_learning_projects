@@ -35,6 +35,13 @@ class AddUserViewModel : ViewModel() {
         viewModelScope.launch {
             _isLoading.value = true
 
+            val existingUser = firestoreDataSource.getUser(email)
+            if (existingUser is Result.Success && existingUser.data != null) {
+                _createUserResult.value = Result.Error("User with email $email already exists")
+                _isLoading.value = false
+                return@launch
+            }
+
             val user = User(
                 userId = "",
                 email = email,
@@ -52,11 +59,10 @@ class AddUserViewModel : ViewModel() {
                 status = UserStatus.OFFLINE
             )
 
-            // Step 1: Create the new user (supervisor or employee)
             val createResult = firestoreDataSource.createUser(user)
 
             if (createResult is Result.Success) {
-                // Step 2: Handle all related operations
+                // Step 3: Handle all related operations
                 val operationsResult = handleRelatedOperations(
                     role = role,
                     newUserEmail = email,

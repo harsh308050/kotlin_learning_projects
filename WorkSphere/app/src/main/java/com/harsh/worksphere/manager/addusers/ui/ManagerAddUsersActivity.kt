@@ -15,7 +15,6 @@ import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.RadioGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -28,6 +27,8 @@ import com.google.android.material.card.MaterialCardView
 import com.google.android.material.textfield.TextInputEditText
 import com.harsh.worksphere.R
 import com.harsh.worksphere.components.CommonBottomSheet
+import com.harsh.worksphere.components.CommonSnackbar.showSuccessAndFinish
+import com.harsh.worksphere.components.CommonSnackbar.showError
 import com.harsh.worksphere.core.utils.Result
 import com.harsh.worksphere.initial.auth.data.model.User
 import com.harsh.worksphere.initial.auth.data.model.UserRole
@@ -37,7 +38,6 @@ import com.harsh.worksphere.manager.addusers.viewmodel.EmployeeViewModel
 import com.harsh.worksphere.manager.sites.data.model.SiteModel
 import com.harsh.worksphere.manager.sites.viewmodel.SiteViewModel
 import kotlinx.coroutines.launch
-import java.io.File
 
 class ManagerAddUsersActivity : AppCompatActivity() {
 
@@ -152,16 +152,24 @@ class ManagerAddUsersActivity : AppCompatActivity() {
     private fun setupObservers() {
         siteViewModel.sites.observe(this) { sites ->
             siteBottomSheet?.setLoading(false)
-            if (sites.isEmpty()) {
+            
+            // Filter sites: only show unassigned sites for supervisors
+            val filteredSites = if (currentRole == UserRole.Supervisor) {
+                sites.filter { it.supervisorId.isEmpty() }
+            } else {
+                sites
+            }
+            
+            if (filteredSites.isEmpty()) {
                 siteBottomSheet?.showEmptyState(true)
             } else {
                 siteBottomSheet?.hideEmptyState()
-                siteAdapter?.submitList(sites)
+                siteAdapter?.submitList(filteredSites)
             }
         }
 
         siteViewModel.error.observe(this) { error ->
-            error?.let { Toast.makeText(this, it, Toast.LENGTH_SHORT).show() }
+            error?.let { showError(it) }
         }
 
         userViewModel.employees.observe(this) { users ->
@@ -188,7 +196,7 @@ class ManagerAddUsersActivity : AppCompatActivity() {
         }
 
         userViewModel.error.observe(this) { error ->
-            error?.let { Toast.makeText(this, it, Toast.LENGTH_SHORT).show() }
+            error?.let { showError(it) }
         }
 
         addUserViewModel.createUserResult.observe(this) { result ->
@@ -197,11 +205,10 @@ class ManagerAddUsersActivity : AppCompatActivity() {
 
             when (result) {
                 is Result.Success -> {
-                    Toast.makeText(this, "User created successfully", Toast.LENGTH_SHORT).show()
-                    finish()
+                    showSuccessAndFinish("User Created Successfully", 2000)
                 }
                 is Result.Error -> {
-                    Toast.makeText(this, result.message, Toast.LENGTH_LONG).show()
+                    showError(result.message)
                 }
                 is Result.Loading -> {
                     progressBar.isVisible = true
@@ -237,9 +244,7 @@ class ManagerAddUsersActivity : AppCompatActivity() {
 
     private fun showEmployeeBottomSheet() {
         employeeAdapter = EmployeeSelectionAdapter(
-            onSelectionChanged = { selectedList ->
-                // This is called when selection changes
-            },
+            onSelectionChanged = { selectedList ->            },
             singleSelection = false,
             showAssignmentStatus = true,
             onReassignRequested = { employee, callback ->
@@ -259,28 +264,21 @@ class ManagerAddUsersActivity : AppCompatActivity() {
                     recyclerView.layoutManager = LinearLayoutManager(this)
                     recyclerView.adapter = employeeAdapter
 
-                    // Pre-select already selected employees and restore reassignments
+
                     employeeAdapter?.setSelectedEmployees(selectedEmployees)
-                    // Restore pending reassignments to adapter
                     pendingReassignments.keys.forEach { email ->
                         employeeAdapter?.confirmReassignment(email)
                     }
 
                     btnDone.setOnClickListener {
-                        // Get the NEWLY selected employees from adapter
                         val newlySelected = employeeAdapter?.getSelectedEmployees() ?: emptyList()
-
-                        // Build pending reassignments map based on which employees have mySupervisor set
-                        // and are marked for reassignment in the adapter
                         val adapterPendingReassignments = employeeAdapter?.getPendingReassignments() ?: emptySet()
 
                         pendingReassignments.clear()
                         newlySelected.forEach { employee ->
-                            // Only add to pendingReassignments if:
-                            // 1. Employee has a current supervisor (mySupervisor is not null/empty)
-                            // 2. Employee is marked for reassignment in the adapter
+
                             if (!employee.mySupervisor.isNullOrEmpty() && adapterPendingReassignments.contains(employee.email)) {
-                                pendingReassignments[employee.email] = employee.mySupervisor!!
+                                pendingReassignments[employee.email] = employee.mySupervisor
 
                             }
                         }
@@ -313,7 +311,7 @@ class ManagerAddUsersActivity : AppCompatActivity() {
 
         dialogView.findViewById<TextView>(R.id.dialog_employee_name).text = employee.name
         dialogView.findViewById<TextView>(R.id.dialog_current_supervisor).text =
-            "Currently assigned to: $oldSupervisor"
+            "$oldSupervisor"
 
         dialogView.findViewById<MaterialButton>(R.id.dialog_reassign_btn).setOnClickListener {
             callback(true)
@@ -375,9 +373,9 @@ class ManagerAddUsersActivity : AppCompatActivity() {
         selectedSiteAddress.text = site.location.address
         selectedSiteDescription.text = site.workDetails
 
-        if (site.siteImageUrl.isNotEmpty() && File(site.siteImageUrl).exists()) {
+        if (site.siteImageUrl.isNotEmpty()) {
             Glide.with(this)
-                .load(File(site.siteImageUrl))
+                .load(site.siteImageUrl)
                 .placeholder(R.drawable.siteeee)
                 .into(selectedSiteImage)
         } else {
@@ -475,7 +473,7 @@ class ManagerAddUsersActivity : AppCompatActivity() {
             emailField.error = "Valid email is required"
             return
         }
-        if (phone.isEmpty() || phone.length < 10) {
+        if (phone.isEmpty() || phone.length != 10) {
             phoneField.error = "Valid phone number is required"
             return
         }
@@ -515,7 +513,7 @@ class ManagerAddUsersActivity : AppCompatActivity() {
                 }
             }
             else -> {
-                Toast.makeText(this, "Invalid role selected", Toast.LENGTH_SHORT).show()
+                showError("Invalid role selected")
                 return
             }
         }

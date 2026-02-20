@@ -58,20 +58,22 @@
                 android:text="email@example.com"
                 android:textColor="@color/light_grey"
                 android:textSize="13sp" />
+            <TextView
+                android:layout_marginTop="8dp"
+                android:id="@+id/reassigned_badge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
+                android:text="Reassigned"
+                android:textSize="11sp"
+                android:textColor="@color/white"
+                android:background="@drawable/circular_border"
+                android:backgroundTint="@color/primary_blue_dark"
+                android:visibility="gone" />
         </LinearLayout>
-        <TextView
-            android:id="@+id/reassigned_badge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:paddingHorizontal="8dp"
-            android:paddingVertical="4dp"
-            android:text="Reassigned"
-            android:textSize="11sp"
-            android:textColor="@color/white"
-            android:background="@drawable/circular_border"
-            android:backgroundTint="@color/primary_blue_dark"
-            android:visibility="gone" />
+
         <ImageButton
             android:id="@+id/chip_remove_btn"
             android:layout_width="36dp"

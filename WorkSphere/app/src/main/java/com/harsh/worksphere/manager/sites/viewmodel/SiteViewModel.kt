@@ -64,13 +64,32 @@ class SiteViewModel : ViewModel() {
     val isEditMode: LiveData<Boolean> = _isEditMode
 
     private var currentSiteId: String = ""
+    fun getCurrentSiteId(): String = currentSiteId
     private var originalSupervisorId: String = ""
+    private var _pendingReassignmentSiteId: String? = null
+    private var _pendingReassignmentSupervisorEmail: String? = null
+
+    fun setPendingReassignment(oldSiteId: String, supervisorEmail: String) {
+        _pendingReassignmentSiteId = oldSiteId
+        _pendingReassignmentSupervisorEmail = supervisorEmail
+    }
+
+    fun clearPendingReassignment() {
+        _pendingReassignmentSiteId = null
+        _pendingReassignmentSupervisorEmail = null
+    }
     private val _isActive = MutableLiveData(true)
     val isActive: LiveData<Boolean> = _isActive
     private val _siteImageUrl = MutableLiveData<String>()
     val siteImagePath: LiveData<String> = _siteImageUrl
     private val _siteStatus = MutableLiveData(SiteStatus.PENDING_ASSIGNMENT)
     val siteStatus: LiveData<SiteStatus> = _siteStatus
+
+    private val _visitTimeFrom = MutableLiveData("")
+    val visitTimeFrom: LiveData<String> = _visitTimeFrom
+
+    private val _visitTimeTo = MutableLiveData("")
+    val visitTimeTo: LiveData<String> = _visitTimeTo
 
     fun setSiteImagePath(path: String) {
         _siteImageUrl.value = path
@@ -82,6 +101,14 @@ class SiteViewModel : ViewModel() {
 
     fun setSiteStatus(status: SiteStatus) {
         _siteStatus.value = status
+    }
+
+    fun setVisitTimeFrom(time: String) {
+        _visitTimeFrom.value = time
+    }
+
+    fun setVisitTimeTo(time: String) {
+        _visitTimeTo.value = time
     }
 
     // Setters for UI updates
@@ -115,6 +142,8 @@ class SiteViewModel : ViewModel() {
         _isActive.value = site.isActive
         _siteImageUrl.value = site.siteImageUrl
         _siteStatus.value = site.status
+        _visitTimeFrom.value = site.visitTimeFrom
+        _visitTimeTo.value = site.visitTimeTo
     }
 
     fun clearEditMode() {
@@ -188,7 +217,9 @@ class SiteViewModel : ViewModel() {
                 createdBy = createdBy,
                 isActive = _isActive.value ?: true,
                 siteImageUrl= _siteImageUrl.value ?: "",
-                status = resolveStatus()
+                status = resolveStatus(),
+                visitTimeFrom = _visitTimeFrom.value ?: "",
+                visitTimeTo = _visitTimeTo.value ?: ""
             )
 
             val isEdit = _isEditMode.value == true
@@ -224,6 +255,15 @@ class SiteViewModel : ViewModel() {
                 if (isEdit && oldSupervisorId.isNotEmpty() && oldSupervisorId != newSupervisorId) {
                     // Supervisor was removed or changed — clear assignedSite from old supervisor & their employees
                     repository.clearUsersFromSite(oldSupervisorId)
+                }
+
+                // If supervisor was reassigned from another site, clear that old site's supervisor fields
+                val reassignSiteId = _pendingReassignmentSiteId
+                val reassignSupervisorEmail = _pendingReassignmentSupervisorEmail
+                if (!reassignSiteId.isNullOrEmpty() && !reassignSupervisorEmail.isNullOrEmpty()) {
+                    repository.clearSupervisorFromSite(reassignSiteId, reassignSupervisorEmail)
+                    _pendingReassignmentSiteId = null
+                    _pendingReassignmentSupervisorEmail = null
                 }
 
                 // Sync assignedSite to the new supervisor and all their employees
@@ -282,6 +322,10 @@ class SiteViewModel : ViewModel() {
         _isActive.value = true
         _siteImageUrl.value = ""
         _siteStatus.value = SiteStatus.PENDING_ASSIGNMENT
+        _visitTimeFrom.value = ""
+        _visitTimeTo.value = ""
+        _pendingReassignmentSiteId = null
+        _pendingReassignmentSupervisorEmail = null
         _error.value = null
         _success.value = false
     }

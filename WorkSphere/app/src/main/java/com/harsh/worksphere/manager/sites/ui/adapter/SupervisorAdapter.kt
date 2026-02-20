@@ -5,8 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.RadioButton
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -16,7 +17,10 @@ import com.harsh.worksphere.R
 import com.harsh.worksphere.initial.auth.data.model.User
 
 class SupervisorAdapter(
-    private val onItemClick: (User) -> Unit
+    private val onItemClick: (User) -> Unit,
+    private val showAssignmentStatus: Boolean = false,
+    private val currentSiteId: String = "",
+    private val onReassignRequested: ((User, (Boolean) -> Unit) -> Unit)? = null
 ) : ListAdapter<User, SupervisorAdapter.ViewHolder>(DiffCallback()) {
 
     private var selectedPosition = -1
@@ -36,6 +40,7 @@ class SupervisorAdapter(
         private val nameText: TextView = itemView.findViewById(R.id.selected_supervisor_name)
         private val emailText: TextView = itemView.findViewById(R.id.selected_supervisor_email)
         private val imageView: ImageView = itemView.findViewById(R.id.selected_supervisor_image)
+        private val assignedBadge: TextView = itemView.findViewById(R.id.assigned_badge)
 
         fun bind(supervisor: User, isSelected: Boolean) {
             nameText.text = supervisor.name
@@ -49,13 +54,50 @@ class SupervisorAdapter(
                 .circleCrop()
                 .into(imageView)
 
+            val isAssignedElsewhere = showAssignmentStatus &&
+                    !supervisor.assignedSite.isNullOrEmpty() &&
+                    supervisor.assignedSite != currentSiteId
+
+            // Show assigned badge
+            if (isAssignedElsewhere) {
+                assignedBadge.isVisible = true
+                assignedBadge.text = "Assigned to Site"
+                assignedBadge.backgroundTintList =
+                    ContextCompat.getColorStateList(itemView.context, R.color.orange)
+            } else {
+                assignedBadge.isVisible = false
+            }
+
+            // Visual selection state
+            if (isSelected) {
+                card.strokeColor = ContextCompat.getColor(itemView.context, R.color.primary_blue)
+                card.strokeWidth = 4
+                card.setCardBackgroundColor(ContextCompat.getColor(itemView.context, R.color.primary_blue_light))
+            } else {
+                card.strokeColor = ContextCompat.getColor(itemView.context, R.color.light_grey)
+                card.strokeWidth = 2
+                card.cardElevation = 2f
+                card.setCardBackgroundColor(ContextCompat.getColor(itemView.context, R.color.white))
+            }
 
             card.setOnClickListener {
-                val previousPosition = selectedPosition
-                selectedPosition = adapterPosition
-                notifyItemChanged(previousPosition)
-                notifyItemChanged(selectedPosition)
-                onItemClick(supervisor)
+                if (isAssignedElsewhere && onReassignRequested != null) {
+                    onReassignRequested.invoke(supervisor) { confirmed ->
+                        if (confirmed) {
+                            val previousPosition = selectedPosition
+                            selectedPosition = adapterPosition
+                            notifyItemChanged(previousPosition)
+                            notifyItemChanged(selectedPosition)
+                            onItemClick(supervisor)
+                        }
+                    }
+                } else {
+                    val previousPosition = selectedPosition
+                    selectedPosition = adapterPosition
+                    notifyItemChanged(previousPosition)
+                    notifyItemChanged(selectedPosition)
+                    onItemClick(supervisor)
+                }
             }
         }
     }

@@ -56,7 +56,6 @@ class EmployeeSelectionAdapter(
         private val employeeImage: ImageView = itemView.findViewById(R.id.selected_supervisor_image)
         private val employeeName: TextView = itemView.findViewById(R.id.selected_supervisor_name)
         private val employeeEmail: TextView = itemView.findViewById(R.id.selected_supervisor_email)
-        private val checkBox: CheckBox = itemView.findViewById(R.id.selection_checkbox)
         private val assignedBadge: TextView = itemView.findViewById(R.id.assigned_badge)
 
         fun bind(employee: User) {
@@ -77,30 +76,26 @@ class EmployeeSelectionAdapter(
             if (showAssignmentStatus && isAlreadyAssigned && !isPendingReassignment) {
                 assignedBadge.isVisible = true
                 assignedBadge.text = "Assigned"
-                assignedBadge.setBackgroundColor(ContextCompat.getColor(itemView.context, R.color.orange))
+                assignedBadge.backgroundTintList = ContextCompat.getColorStateList(itemView.context, R.color.orange)
             } else if (isPendingReassignment) {
                 assignedBadge.isVisible = true
                 assignedBadge.text = "Reassigning"
-                assignedBadge.setBackgroundColor(ContextCompat.getColor(itemView.context, R.color.primary_blue_dark))
+                assignedBadge.backgroundTintList = ContextCompat.getColorStateList(itemView.context, R.color.primary_blue_dark)
+
             } else {
                 assignedBadge.isVisible = false
             }
-
-            // Update checkbox
-            checkBox.isChecked = isSelected || isPendingReassignment
 
             // Visual indication
             when {
                 isPendingReassignment -> {
                     cardView.strokeColor = ContextCompat.getColor(itemView.context, R.color.primary_blue_dark)
                     cardView.strokeWidth = 4
-                    cardView.cardElevation = 8f
                     cardView.setCardBackgroundColor(ContextCompat.getColor(itemView.context, R.color.primary_blue_light))
                 }
                 isSelected -> {
                     cardView.strokeColor = ContextCompat.getColor(itemView.context, R.color.primary_blue)
                     cardView.strokeWidth = 4
-                    cardView.cardElevation = 8f
                     cardView.setCardBackgroundColor(ContextCompat.getColor(itemView.context, R.color.primary_blue_light))
                 }
                 else -> {

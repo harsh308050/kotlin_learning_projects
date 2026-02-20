@@ -13,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.material.button.MaterialButton
 import com.harsh.worksphere.R
+import com.harsh.worksphere.components.CommonSnackbar.showError
 import com.harsh.worksphere.employee.home.EmployeeHomeActivity
 import com.harsh.worksphere.initial.auth.data.repo.*
 import com.harsh.worksphere.initial.auth.data.model.*
@@ -101,9 +102,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun showError(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
-    }
+
 
     private fun navigateToHome(authResult: AuthResult) {
         val targetClass = when (authResult.role) {

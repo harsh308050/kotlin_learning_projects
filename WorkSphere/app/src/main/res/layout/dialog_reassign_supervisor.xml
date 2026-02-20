@@ -26,7 +26,7 @@
         android:layout_marginTop="16dp"
         android:fontFamily="@font/mitr_semibold"
         android:gravity="center"
-        android:text="Reassign Employee?"
+        android:text="Reassign Supervisor?"
         android:textColor="@color/black"
         android:textFontWeight="500"
         android:textSize="20sp" />
@@ -39,7 +39,7 @@
         android:layout_marginTop="10dp"
         android:background="@color/light_grey" />
 
-    <!-- Employee Info Card -->
+    <!-- Supervisor Info Card -->
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -56,28 +56,28 @@
             android:padding="14dp">
 
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawablePadding="8dp"
-                    android:textFontWeight="400"
                     android:gravity="start"
-                    android:text="Employee Name:"
+                    android:text="Supervisor:"
                     android:textColor="@color/dark_grey"
+                    android:textFontWeight="400"
                     android:textSize="15sp" />
+
                 <TextView
-                    android:layout_marginStart="10dp"
-                    android:id="@+id/dialog_employee_name"
+                    android:id="@+id/dialog_supervisor_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawablePadding="8dp"
-                    android:text="Harsh Parmar"
-                    android:textFontWeight="600"
+                    android:layout_marginStart="10dp"
                     android:gravity="start"
+                    android:text="Supervisor Name"
                     android:textColor="@color/black"
+                    android:textFontWeight="600"
                     android:textSize="15sp" />
             </LinearLayout>
 
@@ -86,31 +86,32 @@
                 android:layout_height="1dp"
                 android:layout_marginVertical="8dp"
                 android:background="@color/dark_grey" />
+
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawablePadding="8dp"
-                    android:textFontWeight="400"
                     android:gravity="start"
-                    android:text="Current Supervisor:"
+                    android:text="Current Site:"
                     android:textColor="@color/dark_grey"
+                    android:textFontWeight="400"
                     android:textSize="15sp" />
+
                 <TextView
-                    android:layout_marginStart="10dp"
-                    android:id="@+id/dialog_current_supervisor"
+                    android:id="@+id/dialog_current_site"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textFontWeight="500"
-                    android:text="@string/app_name"
+                    android:layout_marginStart="10dp"
                     android:gravity="start"
+                    android:text="Site Name"
                     android:textColor="@color/black"
+                    android:textFontWeight="500"
                     android:textSize="15sp" />
             </LinearLayout>
-
 
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
@@ -130,6 +131,7 @@
         android:layout_marginTop="8dp"
         android:orientation="vertical">
 
+        <!-- Bullet 1 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -147,7 +149,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:fontFamily="@font/mitr_regular"
-                android:text="Remove from current supervisor"
+                android:text="Remove supervisor from current site"
                 android:textColor="@color/dark_grey"
                 android:textSize="13sp" />
         </LinearLayout>
@@ -163,14 +165,14 @@
                 android:layout_width="6dp"
                 android:layout_height="6dp"
                 android:background="@drawable/circular_border"
-                android:backgroundTint="@color/primary_blue" />
+                android:backgroundTint="@color/orange" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:fontFamily="@font/mitr_regular"
-                android:text="Assign to new supervisor"
+                android:text="Reset old site to Pending Assignment"
                 android:textColor="@color/dark_grey"
                 android:textSize="13sp" />
         </LinearLayout>
@@ -192,7 +194,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:fontFamily="@font/mitr_regular"
-                android:text="Update site assignment"
+                android:text="Assign supervisor to this site"
                 android:textColor="@color/dark_grey"
                 android:textSize="13sp" />
         </LinearLayout>

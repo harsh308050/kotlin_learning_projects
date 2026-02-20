@@ -13,7 +13,6 @@ import com.bumptech.glide.Glide
 import com.google.android.material.card.MaterialCardView
 import com.harsh.worksphere.R
 import com.harsh.worksphere.manager.sites.data.model.SiteModel
-import java.io.File
 
 class SiteSelectionAdapter(
     private val onSiteSelected: (SiteModel) -> Unit
@@ -44,9 +43,9 @@ class SiteSelectionAdapter(
             siteDescription.text = site.workDetails
 
             // Load site image
-            if (site.siteImageUrl.isNotEmpty() && File(site.siteImageUrl).exists()) {
+            if (site.siteImageUrl.isNotEmpty()) {
                 Glide.with(itemView.context)
-                    .load(File(site.siteImageUrl))
+                    .load(site.siteImageUrl)
                     .placeholder(R.drawable.siteeee)
                     .into(siteImage)
             } else {

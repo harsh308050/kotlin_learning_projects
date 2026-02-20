@@ -188,4 +188,67 @@ class FirestoreDataSource {
             Result.Error(e.message ?: "Failed to update profile picture")
         }
     }
+
+    suspend fun updateUserStatus(email: String, status: String): Result<Unit> {
+        return try {
+            usersCollection.document(email).update("status", status).await()
+            Result.Success(Unit)
+        } catch (e: Exception) {
+            Result.Error(e.message ?: "Failed to update status")
+        }
+    }
+
+    /**
+     * Save a visit log record to visitLogs collection.
+     * Creates a new document with ID: record_{timestampMillis}
+     * Used for status changes (break/offline) — auto-saved without dialog.
+     */
+    suspend fun saveVisitLogRecord(
+        userId: String,
+        supervisorId: String?,
+        siteId: String?,
+        siteName: String?,
+        siteAddress: String?,
+        siteLatitude: Double?,
+        siteLongitude: Double?,
+        visitNotes: String,
+        evidenceImages: List<String>,
+        status: String,
+        timestamp: String,
+        timestampMillis: Long,
+        date: String
+    ): Result<Unit> {
+        return try {
+            val recordId = "record_$timestampMillis"
+            val recordData = hashMapOf<String, Any?>(
+                "siteId" to siteId,
+                "siteName" to siteName,
+                "siteAddress" to siteAddress,
+                "siteLocation" to if (siteLatitude != null && siteLongitude != null) {
+                    mapOf(
+                        "latitude" to siteLatitude,
+                        "longitude" to siteLongitude
+                    )
+                } else null,
+                "visitNotes" to visitNotes,
+                "evidenceImages" to evidenceImages,
+                "timestamp" to timestamp,
+                "timestampMillis" to timestampMillis,
+                "status" to status,
+                "userId" to userId,
+                "supervisorId" to supervisorId
+            )
+
+            firestore.collection("visitLogs")
+                .document(userId)
+                .collection(date)
+                .document(recordId)
+                .set(recordData)
+                .await()
+
+            Result.Success(Unit)
+        } catch (e: Exception) {
+            Result.Error(e.message ?: "Failed to save visit log record")
+        }
+    }
 }

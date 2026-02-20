@@ -66,29 +66,20 @@
                 android:textColor="@color/light_grey"
                 android:textFontWeight="400"
                 android:textSize="14sp" />
+            <TextView
+                android:layout_marginTop="8dp"
+                android:id="@+id/assigned_badge"
+                android:layout_width="wrap_content"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="4dp"
+                android:text="Assigned"
+                android:textSize="12sp"
+                android:textColor="@color/white"
+                android:background="@drawable/circular_border"
+                android:backgroundTint="@color/orange"
+                android:visibility="gone" />
         </LinearLayout>
-        <TextView
-            android:id="@+id/assigned_badge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:paddingHorizontal="8dp"
-            android:paddingVertical="4dp"
-            android:text="Assigned"
-            android:textSize="12sp"
-            android:textColor="@color/white"
-            android:background="@drawable/circular_border"
-            android:backgroundTint="@color/orange"
-            android:visibility="gone" />
-        <!-- Add checkbox indicator -->
-        <CheckBox
-            android:id="@+id/selection_checkbox"
-            android:layout_width="wrap_content"
-            android:checked="false"
-            android:buttonTint="@color/primary_blue"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:clickable="false"
-            android:focusable="false" />
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

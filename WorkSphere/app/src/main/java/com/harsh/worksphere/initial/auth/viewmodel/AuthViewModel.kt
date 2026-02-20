@@ -65,7 +65,7 @@ class AuthViewModel(
                     // User was pre-created by manager - UPDATE with Firebase UID and Google profile pic
                     val updatedUser = existingUser.copy(
                         userId = firebaseUid, // Update to Firebase Auth UID
-                        profilePic = profilePic ?: existingUser.profilePic, // Use Google photo if available
+                        profilePic = if (existingUser.profilePic.isNullOrEmpty()) profilePic else existingUser.profilePic, // Only use Google photo if no profile pic is set
                         name = name.ifEmpty { existingUser.name } // Use Google name if available, keep existing if not
                     )
 

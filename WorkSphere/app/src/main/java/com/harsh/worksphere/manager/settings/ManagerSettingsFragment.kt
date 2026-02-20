@@ -10,21 +10,23 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.credentials.ClearCredentialStateRequest
 import androidx.credentials.CredentialManager
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
+import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.button.MaterialButton
 import com.harsh.worksphere.R
 import com.harsh.worksphere.core.firebase.FirebaseModule
-import com.harsh.worksphere.core.utils.FileUtils
+import com.harsh.worksphere.core.utils.CloudinaryHelper
 import com.harsh.worksphere.core.utils.Result
 import com.harsh.worksphere.initial.auth.data.remote.FirestoreDataSource
 import com.harsh.worksphere.initial.auth.ui.LoginActivity
 import com.harsh.worksphere.manager.notifications.ManagerNotificationActivity
+import com.harsh.worksphere.components.CommonSnackbar.showSuccess
+import com.harsh.worksphere.components.CommonSnackbar.showError
 import kotlinx.coroutines.launch
 
 class ManagerSettingsFragment : Fragment(R.layout.manager_settings_fragment) {
@@ -36,7 +38,7 @@ class ManagerSettingsFragment : Fragment(R.layout.manager_settings_fragment) {
     private lateinit var profileName: TextView
     private lateinit var profileRole: TextView
     private lateinit var profileEmail: TextView
-
+    private lateinit var profileShimmer: ShimmerFrameLayout
 
     private val firestoreDataSource = FirestoreDataSource()
     private val currentUserEmail = FirebaseModule.auth.currentUser?.email ?: ""
@@ -73,6 +75,7 @@ class ManagerSettingsFragment : Fragment(R.layout.manager_settings_fragment) {
         profileName = requireView().findViewById(R.id.manager_profile_name)
         profileRole = requireView().findViewById(R.id.manager_profile_role)
         profileEmail = requireView().findViewById(R.id.manager_profile_email)
+        profileShimmer = requireView().findViewById(R.id.manager_profile_shimmer)
     }
 
     private fun loadUserProfile() {
@@ -111,29 +114,40 @@ class ManagerSettingsFragment : Fragment(R.layout.manager_settings_fragment) {
     }
 
     private fun handleSelectedImage(uri: Uri) {
-        val persistentPath = FileUtils.copyImageToAppStorage(requireContext(), uri, "profile_images", "profile")
+        // Show shimmer overlay while uploading
+        profileShimmer.visibility = View.VISIBLE
+        profileShimmer.startShimmer()
 
-        if (persistentPath != null) {
-            // Show selected image immediately
-            Glide.with(this)
-                .load(persistentPath)
-                .placeholder(R.drawable.siteeee)
-                .into(profileImage)
+        // Upload to Cloudinary, then save URL to Firestore
+        lifecycleScope.launch {
+            val cloudinaryUrl = CloudinaryHelper.uploadImage(requireContext(), uri, "profile_images")
 
-            // Save to Firestore
-            lifecycleScope.launch {
-                when (val result = firestoreDataSource.updateProfilePic(currentUserEmail, persistentPath)) {
+            if (cloudinaryUrl != null) {
+                when (val result = firestoreDataSource.updateProfilePic(currentUserEmail, cloudinaryUrl)) {
                     is Result.Success -> {
-                        Toast.makeText(requireContext(), "Profile picture updated", Toast.LENGTH_SHORT).show()
+                        // Stop shimmer and show uploaded image immediately
+                        profileShimmer.stopShimmer()
+                        profileShimmer.visibility = View.GONE
+                        if (isAdded) {
+                            Glide.with(this@ManagerSettingsFragment)
+                                .load(cloudinaryUrl)
+                                .placeholder(R.drawable.siteeee)
+                                .into(profileImage)
+                        }
+                        showSuccess("Profile picture updated")
                     }
                     is Result.Error -> {
-                        Toast.makeText(requireContext(), "Failed to save: ${result.message}", Toast.LENGTH_SHORT).show()
+                        profileShimmer.stopShimmer()
+                        profileShimmer.visibility = View.GONE
+                        showError("Failed to save: ${result.message}")
                     }
                     is Result.Loading -> {}
                 }
+            } else {
+                profileShimmer.stopShimmer()
+                profileShimmer.visibility = View.GONE
+                showError("Failed to upload image")
             }
-        } else {
-            Toast.makeText(requireContext(), "Failed to save image", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -164,7 +178,7 @@ class ManagerSettingsFragment : Fragment(R.layout.manager_settings_fragment) {
                     startActivity(intent)
                     requireActivity().finish()
                 } catch (e: Exception) {
-                    Toast.makeText(requireContext(), "Logout failed: ${e.message}", Toast.LENGTH_SHORT).show()
+                    showError("Logout failed: ${e.message}")
                 }
             }
         }

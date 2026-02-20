@@ -15,7 +15,6 @@ import com.bumptech.glide.Glide
 import com.harsh.worksphere.R
 import com.harsh.worksphere.manager.sites.data.model.SiteModel
 import com.harsh.worksphere.manager.sites.data.model.SiteStatus
-import java.io.File
 
 class SitesAdapter(
     private val onItemClick: (SiteModel) -> Unit,
@@ -55,28 +54,16 @@ class SitesAdapter(
             }
             statusBadge.backgroundTintList = ContextCompat.getColorStateList(itemView.context, statusColorRes)
 
-            // Load site image from local path - SAME AS ACTIVITY
-            when {
-                site.siteImageUrl.isNotEmpty() && File(site.siteImageUrl).exists() -> {
-                    // Load from local file path
-                    Glide.with(itemView.context)
-                        .load(File(site.siteImageUrl))
-                        .placeholder(R.drawable.siteeee)
-                        .error(R.drawable.siteeee)
-                        .into(siteImage)
-                }
-                site.siteImageUrl.isNotEmpty() -> {
-                    // Try loading as URI if file doesn't exist
-                    Glide.with(itemView.context)
-                        .load(site.siteImageUrl)
-                        .placeholder(R.drawable.siteeee)
-                        .error(R.drawable.siteeee)
-                        .into(siteImage)
-                }
-                else -> {
-                    // Show default image
-                    siteImage.setImageResource(R.drawable.siteeee)
-                }
+            // Load site image
+            if (site.siteImageUrl.isNotEmpty()) {
+                Glide.with(itemView.context)
+                    .load(site.siteImageUrl)
+                    .placeholder(R.drawable.siteeee)
+                    .error(R.drawable.siteeee)
+                    .into(siteImage)
+            } else {
+                // Show default image
+                siteImage.setImageResource(R.drawable.siteeee)
             }
 
             itemView.setOnClickListener { onItemClick(site) }

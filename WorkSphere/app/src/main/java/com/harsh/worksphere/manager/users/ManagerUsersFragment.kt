@@ -9,7 +9,6 @@ import android.widget.LinearLayout
 import android.widget.PopupMenu
 import android.widget.RadioGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -24,6 +23,7 @@ import com.harsh.worksphere.manager.users.viewmodel.AssignmentFilter
 import com.harsh.worksphere.manager.users.viewmodel.RoleTab
 import com.harsh.worksphere.manager.users.viewmodel.StatusFilter
 import com.harsh.worksphere.manager.users.viewmodel.UsersViewModel
+import com.harsh.worksphere.components.CommonSnackbar.showError
 
 class ManagerUsersFragment : Fragment(R.layout.manager_users_fragment) {
 
@@ -201,7 +201,7 @@ class ManagerUsersFragment : Fragment(R.layout.manager_users_fragment) {
 
         viewModel.error.observe(viewLifecycleOwner) { error ->
             error?.let {
-                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+                showError(it)
             }
         }
 

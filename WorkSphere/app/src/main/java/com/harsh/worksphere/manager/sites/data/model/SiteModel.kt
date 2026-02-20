@@ -34,7 +34,9 @@ data class SiteModel(
     val isActive: Boolean = true,
     val createdAt: Long = System.currentTimeMillis(),
     val siteImageUrl: String = "",
-    val status: SiteStatus = SiteStatus.PENDING_ASSIGNMENT
+    val status: SiteStatus = SiteStatus.PENDING_ASSIGNMENT,
+    val visitTimeFrom: String = "",
+    val visitTimeTo: String = ""
 ): Parcelable {
     fun toMap(): Map<String, Any?> = mapOf(
         "siteId" to siteId,
@@ -50,7 +52,9 @@ data class SiteModel(
         "isActive" to isActive,
         "createdAt" to createdAt,
         "siteImageUrl" to siteImageUrl,
-        "status" to status.name
+        "status" to status.name,
+        "visitTimeFrom" to visitTimeFrom,
+        "visitTimeTo" to visitTimeTo
     )
 
     companion object {
@@ -69,7 +73,9 @@ data class SiteModel(
                 isActive = map["isActive"] as? Boolean ?: true,
                 createdAt = map["createdAt"] as? Long ?: System.currentTimeMillis(),
                 siteImageUrl = map["siteImageUrl"] as? String ?: "",
-                status = SiteStatus.fromString(map["status"] as? String ?: SiteStatus.PENDING_ASSIGNMENT.name)
+                status = SiteStatus.fromString(map["status"] as? String ?: SiteStatus.PENDING_ASSIGNMENT.name),
+                visitTimeFrom = map["visitTimeFrom"] as? String ?: "",
+                visitTimeTo = map["visitTimeTo"] as? String ?: ""
             )
         }
     }

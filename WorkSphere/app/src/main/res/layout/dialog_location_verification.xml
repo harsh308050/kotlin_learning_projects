@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_bg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp">
+
+        <!-- ── Top Bar: Refresh (left) — Title (center) — Close (right) ── -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Title (center) -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:text="Location Verification"
+                android:textColor="@color/black"
+                android:textFontWeight="500"
+                android:textSize="20sp" />
+
+            <!-- Close button (right) -->
+            <ImageButton
+                android:id="@+id/btn_close"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:background="@color/transparent"
+                android:padding="6dp"
+                android:src="@drawable/ic_close" />
+        </RelativeLayout>
+        <!-- ── Distance Indicator Circle ── -->
+        <FrameLayout
+            android:layout_width="170dp"
+            android:layout_height="170dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp">
+
+            <!-- LOADING state -->
+            <LinearLayout
+                android:id="@+id/state_loading"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <ProgressBar
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:indeterminateTint="#2E7D32" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Fetching location..."
+                    android:textColor="@color/dark_grey"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <!-- IN RANGE state (green circle border) -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/state_in_range"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardCornerRadius="100dp"
+                android:backgroundTint="@color/white"
+                app:strokeColor="@color/light_green"
+                android:visibility="gone"
+                app:strokeWidth="8dp">
+
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="7dp"
+                    android:background="@drawable/bg_circle_indicator_green"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    >
+
+                    <ImageView
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        android:background="@drawable/floating_btn"
+                        android:backgroundTint="#2E7D32"
+                        android:padding="10dp"
+                        android:src="@drawable/ic_check"
+                        app:tint="@color/white" />
+
+                    <TextView
+                        android:id="@+id/tv_distance_in_range"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="45m"
+                        android:textColor="@color/black"
+                        android:textFontWeight="700"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:letterSpacing="0.1"
+                        android:text="IN RANGE"
+                        android:textColor="#2E7D32"
+                        android:textFontWeight="700"
+                        android:textSize="11sp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- OUT OF RANGE state (red circle border) -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardCornerRadius="100dp"
+                android:id="@+id/state_out_range"
+                android:backgroundTint="@color/white"
+                app:strokeColor="@color/red_light"
+                android:visibility="gone"
+                app:strokeWidth="8dp">
+                <LinearLayout
+                    android:layout_margin="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_circle_indicator_red"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <ImageView
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        android:background="@drawable/floating_btn"
+                        android:backgroundTint="#D32F2F"
+                        android:padding="10dp"
+                        android:src="@drawable/ic_close"
+                        app:tint="@color/white" />
+
+                    <TextView
+                        android:id="@+id/tv_distance_out_range"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="320m"
+                        android:textColor="@color/black"
+                        android:textFontWeight="700"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:letterSpacing="0.1"
+                        android:text="OUT OF RANGE"
+                        android:textColor="#D32F2F"
+                        android:textFontWeight="700"
+                        android:textSize="11sp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </FrameLayout>
+
+        <!-- Error message -->
+        <TextView
+            android:id="@+id/tv_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:textColor="#D32F2F"
+            android:textSize="13sp"
+            android:visibility="gone" />
+
+        <!-- ── Site Info Card with Map ── -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/white"
+            app:cardCornerRadius="12dp"
+            app:strokeColor="@color/light_grey"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <!-- Site header row: name + address + maps icon -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toStartOf="@id/btn_open_maps"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_site_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:textColor="@color/black"
+                            android:textFontWeight="500"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/tv_site_address"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="hello this is my addess hello this is my addesshello this is my addess"
+                            android:textColor="@color/dark_grey"
+                            android:textSize="13sp"
+                            android:visibility="gone" />
+                    </LinearLayout>
+
+                    <ImageButton
+                        android:id="@+id/btn_open_maps"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
+                        android:background="@drawable/floating_btn"
+                        android:backgroundTint="@color/light_green"
+                        android:padding="4dp"
+                        android:src="@drawable/location"
+                        app:tint="@color/green" />
+                </RelativeLayout>
+
+                <!-- Map Container -->
+                <FrameLayout
+                    android:id="@+id/map_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_rounded_corners"
+                    android:clipToOutline="true">
+
+                    <com.google.android.gms.maps.MapView
+                        android:id="@+id/map_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|start"
+                        android:layout_margin="8dp"
+                        android:background="@drawable/circular_border"
+                        android:backgroundTint="@color/white"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="4dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:letterSpacing="0.05"
+                            android:text="GEOFENCE: 100M"
+                            android:textColor="@color/black"
+                            android:textFontWeight="500"
+                            android:textSize="10sp" />
+                    </LinearLayout>
+                </FrameLayout>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- ── Action Buttons ── -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+
+            <!-- Loading / Saving (disabled grey) -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_checking"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:backgroundTint="@color/light_grey"
+                android:enabled="false"
+                android:text="Checking location..."
+                android:textColor="@color/white"
+                android:textFontWeight="500"
+                android:textSize="14sp"
+                android:visibility="visible"
+                app:cornerRadius="12dp" />
+
+            <!-- Proceed (solid blue) -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_proceed"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:backgroundTint="@color/green"
+                android:text="Proceed to Log Visit"
+                android:textColor="@color/white"
+                android:textFontWeight="500"
+                android:textSize="14sp"
+                android:visibility="gone"
+                app:cornerRadius="12dp" />
+
+            <!-- Retry (outlined red) -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_retry"
+                app:strokeColor="@color/red"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="You are too far - Try Again"
+                android:textColor="@color/red"
+                android:textFontWeight="500"
+                android:textSize="14sp"
+                android:visibility="gone"
+                app:cornerRadius="12dp"/>
+
+        </FrameLayout>
+
+    </LinearLayout>
+</ScrollView>

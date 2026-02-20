@@ -4,14 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.View
 import android.view.animation.AnimationUtils
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.lifecycle.lifecycleScope
 import com.google.firebase.auth.FirebaseAuth
 import com.harsh.worksphere.R
+import com.harsh.worksphere.components.CommonSnackbar.showError
 import com.harsh.worksphere.initial.auth.data.model.UserRole
 import com.harsh.worksphere.initial.auth.data.remote.FirestoreDataSource
 import com.harsh.worksphere.initial.auth.data.repo.UserRepository
@@ -19,6 +18,8 @@ import com.harsh.worksphere.initial.auth.ui.LoginActivity
 import com.harsh.worksphere.manager.home.ManagerHomeActivity
 import kotlinx.coroutines.launch
 import com.harsh.worksphere.core.utils.Result
+import com.harsh.worksphere.employee.home.EmployeeHomeActivity
+import com.harsh.worksphere.supervisor.home.SupervisorHomeActivity
 
 class SplashScreen : AppCompatActivity() {
 
@@ -69,7 +70,7 @@ class SplashScreen : AppCompatActivity() {
                     }
                 }
             } catch (e: Exception) {
-                showError("Error: ${e.message}")
+                showError(e.message.toString())
                 navigateToLogin()
             }
         }
@@ -78,8 +79,8 @@ class SplashScreen : AppCompatActivity() {
     private fun navigateToHome(role: UserRole, usermail: String) {
         val intent = when (role) {
             is UserRole.Manager -> Intent(this, ManagerHomeActivity::class.java)
-            is UserRole.Supervisor -> Intent(this, ManagerHomeActivity::class.java)
-            is UserRole.Employee -> Intent(this, ManagerHomeActivity::class.java)
+            is UserRole.Supervisor -> Intent(this, SupervisorHomeActivity::class.java)
+            is UserRole.Employee -> Intent(this, EmployeeHomeActivity::class.java)
         }.apply {
             putExtra("USER_MAIL", usermail)
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -98,9 +99,5 @@ class SplashScreen : AppCompatActivity() {
         }
         startActivity(intent)
         finish()
-    }
-
-    private fun showError(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }
