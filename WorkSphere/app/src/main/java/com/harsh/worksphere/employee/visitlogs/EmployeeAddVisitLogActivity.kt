@@ -22,7 +22,6 @@ import com.harsh.worksphere.components.CommonSnackbar.showError
 import com.harsh.worksphere.components.CommonSnackbar.showSuccessAndFinish
 import com.harsh.worksphere.core.firebase.FirebaseModule
 import com.harsh.worksphere.core.utils.CloudinaryHelper
-import com.harsh.worksphere.core.utils.ServerTimeHelper
 import com.harsh.worksphere.initial.auth.data.remote.FirestoreDataSource
 import com.harsh.worksphere.manager.sites.data.model.SiteModel
 import kotlinx.coroutines.launch
@@ -209,7 +208,7 @@ class EmployeeAddVisitLogActivity : AppCompatActivity() {
                 val displayDateFormat = SimpleDateFormat("dd MMM, yyyy - h:mm a", Locale.getDefault())
 
                 // Create unified visit log record
-                val recordTimestamp = ServerTimeHelper.now()
+                val recordTimestamp = System.currentTimeMillis()
                 val recordId = "record_$recordTimestamp"
                 val formattedTimestamp = displayDateFormat.format(Date(recordTimestamp))
 

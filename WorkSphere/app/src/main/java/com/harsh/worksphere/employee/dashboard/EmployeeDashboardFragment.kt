@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
+import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
@@ -24,7 +25,6 @@ import com.harsh.worksphere.R
 import com.harsh.worksphere.components.CommonSnackbar.showError
 import com.harsh.worksphere.core.firebase.FirebaseModule
 import com.harsh.worksphere.core.utils.Result
-import com.harsh.worksphere.core.utils.ServerTimeHelper
 import com.harsh.worksphere.employee.visitlogs.EmployeeAddVisitLogActivity
 import com.harsh.worksphere.initial.auth.data.model.User
 import com.harsh.worksphere.initial.auth.data.model.UserStatus
@@ -56,12 +56,20 @@ class EmployeeDashboardFragment : Fragment(R.layout.employee_dashboard_fragment)
     // Site card views
     private lateinit var siteCard: MaterialCardView
     private lateinit var siteEmptyState: MaterialCardView
+    private lateinit var siteShimmer: ShimmerFrameLayout
     private lateinit var siteImage: ImageView
     private lateinit var navigateToSiteBtn: ImageButton
     private lateinit var siteStatusBadge: TextView
     private lateinit var siteName: TextView
     private lateinit var siteSupervisor: TextView
     private lateinit var siteShift: TextView
+
+    // Shimmer views
+    private lateinit var appbarShimmer: ShimmerFrameLayout
+    private lateinit var appbarContent: LinearLayout
+    private lateinit var statusShimmer: ShimmerFrameLayout
+    private lateinit var onsiteTimeShimmer: ShimmerFrameLayout
+    private lateinit var breakTimeShimmer: ShimmerFrameLayout
 
     private val firestoreDataSource = FirestoreDataSource()
     private val siteRepository = SiteRepository()
@@ -144,12 +152,27 @@ class EmployeeDashboardFragment : Fragment(R.layout.employee_dashboard_fragment)
         // Site card views
         siteCard = view.findViewById(R.id.employee_site_card)
         siteEmptyState = view.findViewById(R.id.employee_site_empty_state)
+        siteShimmer = view.findViewById(R.id.employee_current_site_shimmer_layout)
+        siteShimmer.startShimmer()
         siteImage = view.findViewById(R.id.siteImage)
         navigateToSiteBtn = view.findViewById(R.id.navigate_to_site_btn)
         siteStatusBadge = view.findViewById(R.id.employee_current_siteStatusBadge)
         siteName = view.findViewById(R.id.employee_current_siteName)
         siteSupervisor = view.findViewById(R.id.employee_current_supervisor)
         siteShift = view.findViewById(R.id.employee_current_siteShift)
+
+        // Shimmer views
+        appbarShimmer = view.findViewById(R.id.employee_appbar_shimmer_layout)
+        appbarContent = view.findViewById(R.id.employee_appbar_content)
+        statusShimmer = view.findViewById(R.id.employee_status_shimmer_layout)
+        onsiteTimeShimmer = view.findViewById(R.id.employee_onsite_time_shimmer)
+        breakTimeShimmer = view.findViewById(R.id.employee_break_time_shimmer)
+
+        // Start all shimmers
+        appbarShimmer.startShimmer()
+        statusShimmer.startShimmer()
+        onsiteTimeShimmer.startShimmer()
+        breakTimeShimmer.startShimmer()
     }
 
     // ── On-Site Switch ───────────────────────────────────────────────────────
@@ -259,6 +282,15 @@ class EmployeeDashboardFragment : Fragment(R.layout.employee_dashboard_fragment)
                     currentStatus = user.status
                     employeeStatusText.text = currentStatus.displayName
 
+                    // Stop appbar & status shimmers, show real content
+                    appbarShimmer.stopShimmer()
+                    appbarShimmer.visibility = View.GONE
+                    appbarContent.visibility = View.VISIBLE
+
+                    statusShimmer.stopShimmer()
+                    statusShimmer.visibility = View.GONE
+                    employeeStatusText.visibility = View.VISIBLE
+
                     // Programmatic switch update — avoid triggering listener
                     isProgrammaticSwitchChange = true
                     employeeOnsiteSwitch.isChecked = currentStatus == UserStatus.ON_SITE
@@ -300,6 +332,8 @@ class EmployeeDashboardFragment : Fragment(R.layout.employee_dashboard_fragment)
     }
 
     private fun showSiteCard(site: SiteModel) {
+        siteShimmer.stopShimmer()
+        siteShimmer.visibility = View.GONE
         siteCard.visibility = View.VISIBLE
         siteEmptyState.visibility = View.GONE
 
@@ -328,6 +362,8 @@ class EmployeeDashboardFragment : Fragment(R.layout.employee_dashboard_fragment)
     }
 
     private fun showSiteEmptyState() {
+        siteShimmer.stopShimmer()
+        siteShimmer.visibility = View.GONE
         siteCard.visibility = View.GONE
         siteEmptyState.visibility = View.VISIBLE
     }
@@ -412,7 +448,7 @@ class EmployeeDashboardFragment : Fragment(R.layout.employee_dashboard_fragment)
                     // Save visit log record only for break/offline (on-site is handled by visit log screen)
                     if (status != UserStatus.ON_SITE) {
                         currentUser?.let { user ->
-                            val timestampMillis = ServerTimeHelper.now()
+                            val timestampMillis = System.currentTimeMillis()
                             val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
                             val date = dateFormat.format(Date())
                             val displayFormat = SimpleDateFormat("dd MMM, yyyy - h:mm a", Locale.getDefault())
@@ -479,7 +515,15 @@ class EmployeeDashboardFragment : Fragment(R.layout.employee_dashboard_fragment)
             is Result.Success -> {
                 val (onsiteMillis, breakMillis) = calculateActivityDurations(result.data)
                 if (isAdded) {
+                    // Stop activity time shimmers and show real values
+                    onsiteTimeShimmer.stopShimmer()
+                    onsiteTimeShimmer.visibility = View.GONE
+                    employeeOnsiteTime.visibility = View.VISIBLE
                     employeeOnsiteTime.text = formatDuration(onsiteMillis)
+
+                    breakTimeShimmer.stopShimmer()
+                    breakTimeShimmer.visibility = View.GONE
+                    employeeBreakTime.visibility = View.VISIBLE
                     employeeBreakTime.text = formatDuration(breakMillis)
                 }
             }
@@ -523,7 +567,7 @@ class EmployeeDashboardFragment : Fragment(R.layout.employee_dashboard_fragment)
 
         // If last status is still active (ON_SITE or ON_BREAK), add time up to now
         if (previousStatus != null && previousTimestamp > 0) {
-            val now = ServerTimeHelper.now()
+            val now = System.currentTimeMillis()
             val elapsed = now - previousTimestamp
             when (previousStatus) {
                 "ON_SITE" -> onsiteMillis += elapsed
