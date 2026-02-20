@@ -253,6 +253,26 @@ class FirestoreDataSource {
     }
 
     /**
+     * Fetch all visit log records for a user on a specific date.
+     * Returns a list of maps sorted by timestampMillis ascending.
+     */
+    suspend fun getTodayVisitLogs(userId: String, date: String): Result<List<Map<String, Any>>> {
+        return try {
+            val snapshot = firestore.collection("visitLogs")
+                .document(userId)
+                .collection(date)
+                .orderBy("timestampMillis")
+                .get()
+                .await()
+
+            val records = snapshot.documents.mapNotNull { it.data }
+            Result.Success(records)
+        } catch (e: Exception) {
+            Result.Error(e.message ?: "Failed to fetch visit logs")
+        }
+    }
+
+    /**
      * Update the supervisor details on a site document.
      * Called when a new supervisor is created and assigned to a site.
      */

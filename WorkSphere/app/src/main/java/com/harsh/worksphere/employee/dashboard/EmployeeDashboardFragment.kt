@@ -24,12 +24,16 @@ import com.harsh.worksphere.R
 import com.harsh.worksphere.components.CommonSnackbar.showError
 import com.harsh.worksphere.core.firebase.FirebaseModule
 import com.harsh.worksphere.core.utils.Result
+import com.harsh.worksphere.core.utils.ServerTimeHelper
 import com.harsh.worksphere.employee.visitlogs.EmployeeAddVisitLogActivity
 import com.harsh.worksphere.initial.auth.data.model.User
 import com.harsh.worksphere.initial.auth.data.model.UserStatus
 import com.harsh.worksphere.initial.auth.data.remote.FirestoreDataSource
 import com.harsh.worksphere.manager.sites.data.model.SiteModel
 import com.harsh.worksphere.manager.sites.repository.SiteRepository
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -71,12 +75,16 @@ class EmployeeDashboardFragment : Fragment(R.layout.employee_dashboard_fragment)
     private var isProgrammaticSwitchChange = false
     private var locationVerificationSucceeded = false
 
+    // Activity timer
+    private var activityTimerJob: Job? = null
+
     // Visit log result launcher — only update status to ON_SITE when form is submitted
     private val visitLogLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
         if (result.resultCode == android.app.Activity.RESULT_OK) {
             updateUserStatus(UserStatus.ON_SITE)
+            startActivityTimer() // refresh timer immediately after visit log submitted
         } else {
             showError("You must complete the visit log form to go on-site")
             isProgrammaticSwitchChange = true
@@ -113,6 +121,12 @@ class EmployeeDashboardFragment : Fragment(R.layout.employee_dashboard_fragment)
     override fun onResume() {
         super.onResume()
         loadDashboardData()
+        startActivityTimer()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        stopActivityTimer()
     }
 
     private fun initView(view: View) {
@@ -398,7 +412,7 @@ class EmployeeDashboardFragment : Fragment(R.layout.employee_dashboard_fragment)
                     // Save visit log record only for break/offline (on-site is handled by visit log screen)
                     if (status != UserStatus.ON_SITE) {
                         currentUser?.let { user ->
-                            val timestampMillis = System.currentTimeMillis()
+                            val timestampMillis = ServerTimeHelper.now()
                             val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
                             val date = dateFormat.format(Date())
                             val displayFormat = SimpleDateFormat("dd MMM, yyyy - h:mm a", Locale.getDefault())
@@ -427,12 +441,107 @@ class EmployeeDashboardFragment : Fragment(R.layout.employee_dashboard_fragment)
                             )
                         }
                     }
+
+                    // Refresh activity timer immediately after status change
+                    startActivityTimer()
                 }
                 is Result.Error -> {
                     if (isAdded) showError(result.message)
                 }
                 is Result.Loading -> {}
             }
+        }
+    }
+
+    // ── Activity Timer ─────────────────────────────────────────────────────
+    private fun startActivityTimer() {
+        stopActivityTimer()
+        activityTimerJob = lifecycleScope.launch {
+            while (isActive) {
+                fetchAndCalculateActivityTime()
+                delay(60_000L) // tick every 60 seconds
+            }
+        }
+    }
+
+    private fun stopActivityTimer() {
+        activityTimerJob?.cancel()
+        activityTimerJob = null
+    }
+
+    private suspend fun fetchAndCalculateActivityTime() {
+        if (currentUserEmail.isEmpty()) return
+
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val today = dateFormat.format(Date())
+
+        when (val result = firestoreDataSource.getTodayVisitLogs(currentUserEmail, today)) {
+            is Result.Success -> {
+                val (onsiteMillis, breakMillis) = calculateActivityDurations(result.data)
+                if (isAdded) {
+                    employeeOnsiteTime.text = formatDuration(onsiteMillis)
+                    employeeBreakTime.text = formatDuration(breakMillis)
+                }
+            }
+            is Result.Error -> {
+                // Silently fail — keep last displayed values
+            }
+            is Result.Loading -> {}
+        }
+    }
+
+    /**
+     * Walk the sorted timeline of status records and accumulate on-site vs break durations.
+     * If the last record is ON_SITE or ON_BREAK, count time up to "now".
+     */
+    private fun calculateActivityDurations(records: List<Map<String, Any>>): Pair<Long, Long> {
+        if (records.isEmpty()) return 0L to 0L
+
+        var onsiteMillis = 0L
+        var breakMillis = 0L
+        var previousStatus: String? = null
+        var previousTimestamp = 0L
+
+        for (record in records) {
+            val status = record["status"] as? String ?: continue
+            val timestamp = (record["timestampMillis"] as? Long)
+                ?: (record["timestampMillis"] as? Number)?.toLong()
+                ?: continue
+
+            if (previousStatus != null && previousTimestamp > 0) {
+                val elapsed = timestamp - previousTimestamp
+                when (previousStatus) {
+                    "ON_SITE" -> onsiteMillis += elapsed
+                    "ON_BREAK" -> breakMillis += elapsed
+                    // OFFLINE → no accumulation
+                }
+            }
+
+            previousStatus = status
+            previousTimestamp = timestamp
+        }
+
+        // If last status is still active (ON_SITE or ON_BREAK), add time up to now
+        if (previousStatus != null && previousTimestamp > 0) {
+            val now = ServerTimeHelper.now()
+            val elapsed = now - previousTimestamp
+            when (previousStatus) {
+                "ON_SITE" -> onsiteMillis += elapsed
+                "ON_BREAK" -> breakMillis += elapsed
+            }
+        }
+
+        return onsiteMillis to breakMillis
+    }
+
+    private fun formatDuration(millis: Long): String {
+        val totalMinutes = millis / 60_000
+        val hours = totalMinutes / 60
+        val minutes = totalMinutes % 60
+        return when {
+            hours > 0 && minutes > 0 -> "${hours}h ${minutes}m"
+            hours > 0 -> "${hours}h 0m"
+            else -> "${minutes}m"
         }
     }
 

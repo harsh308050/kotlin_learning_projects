@@ -18,6 +18,7 @@ import com.harsh.worksphere.initial.auth.ui.LoginActivity
 import com.harsh.worksphere.manager.home.ManagerHomeActivity
 import kotlinx.coroutines.launch
 import com.harsh.worksphere.core.utils.Result
+import com.harsh.worksphere.core.utils.ServerTimeHelper
 import com.harsh.worksphere.employee.home.EmployeeHomeActivity
 import com.harsh.worksphere.supervisor.home.SupervisorHomeActivity
 
@@ -31,6 +32,9 @@ class SplashScreen : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         userRepository = UserRepository(FirestoreDataSource())
+
+        // Sync server time offset (runs during splash animation)
+        lifecycleScope.launch { ServerTimeHelper.sync() }
 
         val logo = findViewById<CardView>(R.id.splash_logo)
         logo.startAnimation(AnimationUtils.loadAnimation(this, R.anim.splash_fade_scale))

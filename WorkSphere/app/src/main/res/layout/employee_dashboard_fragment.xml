@@ -229,7 +229,7 @@
                                 android:layout_marginStart="8dp"
                                 android:ellipsize="end"
                                 android:maxLines="1"
-                                android:text="10 Hours"
+                                android:text="0m"
                                 android:textColor="@color/dark_grey"
                                 android:textFontWeight="400"
                                 android:textSize="16sp" />
@@ -256,7 +256,7 @@
                                 android:layout_marginStart="8dp"
                                 android:ellipsize="end"
                                 android:maxLines="1"
-                                android:text="1 Hour"
+                                android:text="0m"
                                 android:textColor="@color/dark_grey"
                                 android:textFontWeight="400"
                                 android:textSize="16sp" />
