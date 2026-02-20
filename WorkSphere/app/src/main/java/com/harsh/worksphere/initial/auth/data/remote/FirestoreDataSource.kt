@@ -251,4 +251,30 @@ class FirestoreDataSource {
             Result.Error(e.message ?: "Failed to save visit log record")
         }
     }
+
+    /**
+     * Update the supervisor details on a site document.
+     * Called when a new supervisor is created and assigned to a site.
+     */
+    suspend fun updateSiteSupervisorDetails(
+        siteId: String,
+        supervisorEmail: String,
+        supervisorName: String,
+        supervisorPhone: String
+    ): Result<Unit> {
+        return try {
+            firestore.collection("sites").document(siteId).update(
+                mapOf(
+                    "supervisorId" to supervisorEmail,
+                    "supervisorName" to supervisorName,
+                    "supervisorPhone" to supervisorPhone,
+                    "supervisorImageUrl" to "",
+                    "status" to "ASSIGNED"
+                )
+            ).await()
+            Result.Success(Unit)
+        } catch (e: Exception) {
+            Result.Error(e.message ?: "Failed to update site supervisor details")
+        }
+    }
 }

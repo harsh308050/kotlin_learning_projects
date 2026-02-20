@@ -40,10 +40,6 @@ import kotlin.coroutines.resume
 
 private const val GEOFENCE_RADIUS = 100.0
 
-/**
- * Shows a standard Dialog for location verification.
- * Follows the same pattern as reassignment dialogs in the manager module.
- */
 class LocationVerificationDialog(
     private val fragment: Fragment,
     private val site: SiteModel,
@@ -61,8 +57,6 @@ class LocationVerificationDialog(
     // Location
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
-    // Views
-    private lateinit var btnRefresh: ImageButton
     private lateinit var btnClose: ImageButton
     private lateinit var stateLoading: LinearLayout
     private lateinit var stateInRange: MaterialCardView
@@ -108,7 +102,6 @@ class LocationVerificationDialog(
     }
 
     private fun initViews(view: View) {
-        btnRefresh = view.findViewById(R.id.btn_refresh)
         btnClose = view.findViewById(R.id.btn_close)
         stateLoading = view.findViewById(R.id.state_loading)
         stateInRange = view.findViewById(R.id.state_in_range)
@@ -145,7 +138,6 @@ class LocationVerificationDialog(
 
     private fun setupClickListeners() {
         btnClose.setOnClickListener { dismiss() }
-        btnRefresh.setOnClickListener { fetchLocation() }
         btnRetry.setOnClickListener { fetchLocation() }
         btnProceed.setOnClickListener { proceedToLogVisit() }
 
@@ -278,7 +270,6 @@ class LocationVerificationDialog(
         btnChecking.visibility = View.VISIBLE
         btnProceed.visibility = View.GONE
         btnRetry.visibility = View.GONE
-        btnRefresh.isEnabled = false
     }
 
     private fun showInRange(distance: Float) {
@@ -290,7 +281,6 @@ class LocationVerificationDialog(
         btnChecking.visibility = View.GONE
         btnProceed.visibility = View.VISIBLE
         btnRetry.visibility = View.GONE
-        btnRefresh.isEnabled = true
     }
 
     private fun showOutOfRange(distance: Float) {
@@ -302,7 +292,6 @@ class LocationVerificationDialog(
         btnChecking.visibility = View.GONE
         btnProceed.visibility = View.GONE
         btnRetry.visibility = View.VISIBLE
-        btnRefresh.isEnabled = true
     }
 
     private fun setError(message: String) {

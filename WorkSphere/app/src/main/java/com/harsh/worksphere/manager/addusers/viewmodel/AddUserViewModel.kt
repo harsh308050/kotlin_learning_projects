@@ -66,6 +66,8 @@ class AddUserViewModel : ViewModel() {
                 val operationsResult = handleRelatedOperations(
                     role = role,
                     newUserEmail = email,
+                    newUserName = name,
+                    newUserPhone = phone,
                     selectedSite = selectedSite,
                     assignedEmployees = assignedEmployees,
                     mySupervisor = mySupervisor,
@@ -84,6 +86,8 @@ class AddUserViewModel : ViewModel() {
     private suspend fun handleRelatedOperations(
         role: UserRole,
         newUserEmail: String,
+        newUserName: String,
+        newUserPhone: String,
         selectedSite: String?,
         assignedEmployees: List<String>,
         mySupervisor: String?,
@@ -94,6 +98,8 @@ class AddUserViewModel : ViewModel() {
                 UserRole.Supervisor -> {
                     handleSupervisorOperations(
                         supervisorEmail = newUserEmail,
+                        supervisorName = newUserName,
+                        supervisorPhone = newUserPhone,
                         selectedSite = selectedSite,
                         assignedEmployees = assignedEmployees,
                         reassignedEmployees = reassignedEmployees
@@ -114,11 +120,26 @@ class AddUserViewModel : ViewModel() {
 
     private suspend fun handleSupervisorOperations(
         supervisorEmail: String,
+        supervisorName: String,
+        supervisorPhone: String,
         selectedSite: String?,
         assignedEmployees: List<String>,
         reassignedEmployees: List<Pair<String, String>>
     ): Result<Unit> {
         return try {
+            // Update the site document with supervisor details
+            if (!selectedSite.isNullOrEmpty()) {
+                val siteUpdateResult = firestoreDataSource.updateSiteSupervisorDetails(
+                    siteId = selectedSite,
+                    supervisorEmail = supervisorEmail,
+                    supervisorName = supervisorName,
+                    supervisorPhone = supervisorPhone
+                )
+                if (siteUpdateResult is Result.Error) {
+                    throw Exception("Failed to update site supervisor details: ${siteUpdateResult.message}")
+                }
+            }
+
             // Separate regular assignments from reassignments
             val reassignedEmployeeEmails = reassignedEmployees.map { it.first }.toSet()
             val regularAssignments = assignedEmployees.filter { !reassignedEmployeeEmails.contains(it) }
@@ -128,6 +149,16 @@ class AddUserViewModel : ViewModel() {
                 val result = firestoreDataSource.addEmployeeToSupervisor(supervisorEmail, employeeEmail)
                 if (result is Result.Error) {
                     throw Exception("Failed to add employee $employeeEmail: ${result.message}")
+                }
+
+                // Update employee's mySupervisor and assignedSite
+                val updateResult = firestoreDataSource.updateEmployeeSupervisorAndSite(
+                    employeeEmail = employeeEmail,
+                    newSupervisorEmail = supervisorEmail,
+                    newSiteId = selectedSite ?: ""
+                )
+                if (updateResult is Result.Error) {
+                    throw Exception("Failed to update $employeeEmail supervisor/site: ${updateResult.message}")
                 }
             }
 
